@@ -9,28 +9,24 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@500;700;900&family=Noto+Sans+SC:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    /* 水深测绘配色 */
-    --sea-0:#04141d;      /* 最深水 */
-    --sea-1:#071f2b;      /* 背景 */
-    --sea-2:#0b2a39;      /* 面板 */
-    --sea-3:#103140;      /* 抬升面 */
-    --line:#16404f;       /* 等深线 / 网格 */
+    --sea-0:#04141d;
+    --sea-1:#071f2b;
+    --sea-2:#0b2a39;
+    --sea-3:#103140;
+    --line:#16404f;
     --line-soft:#0e2c39;
-    --ink:#e9f3f4;        /* 主文字 */
-    --ink-mute:#7d9aa6;   /* 次文字 */
+    --ink:#e9f3f4;
+    --ink-mute:#7d9aa6;
     --ink-faint:#4d6b78;
-    --cyan:#5eead4;       /* 主强调 / 测深高亮 */
-    /* 五大赛道 */
-    --t1:#3ad48a;  /* 海岸带技术服务 */
-    --t2:#4da3ff;  /* 城市地质数字化 */
-    --t3:#23b8a3;  /* 蓝碳与生态补偿 */
-    --t4:#b48bff;  /* 海洋经济数据服务 */
-    --t5:#ff9f45;  /* 近海装备与新材料 */
-
+    --cyan:#5eead4;
+    --t1:#3ad48a;
+    --t2:#4da3ff;
+    --t3:#23b8a3;
+    --t4:#b48bff;
+    --t5:#ff9f45;
     --serif:"Noto Serif SC",serif;
     --sans:"Noto Sans SC",system-ui,sans-serif;
     --mono:"JetBrains Mono","SFMono-Regular",monospace;
-
     --mw:1180px;
   }
 
@@ -50,7 +46,6 @@
     *{animation:none!important;transition:none!important}
   }
 
-  /* 全局海图网格 + 等深线背景 */
   .chart-bg{
     position:fixed;inset:0;z-index:0;pointer-events:none;
     background:
@@ -69,7 +64,6 @@
 
   .wrap{max-width:var(--mw);margin:0 auto;padding:0 28px;position:relative;z-index:2}
 
-  /* 顶部坐标标签 */
   .eyebrow{
     font-family:var(--mono);font-size:11.5px;letter-spacing:.22em;
     text-transform:uppercase;color:var(--cyan);display:flex;align-items:center;gap:12px;
@@ -77,7 +71,7 @@
   .eyebrow .idx{color:var(--ink-faint)}
   .eyebrow .tick{flex:0 0 28px;height:1px;background:var(--cyan);opacity:.6}
 
-  /* ===== 导航 ===== */
+  /* ===== 导航 (v1.2: 当前section高亮) ===== */
   nav{
     position:sticky;top:0;z-index:40;
     backdrop-filter:blur(14px);
@@ -93,6 +87,7 @@
     color:var(--ink-mute);text-decoration:none;padding:6px 11px;border-radius:6px;transition:.2s;
   }
   .nav-links a:hover{color:var(--cyan);background:rgba(94,234,212,.08)}
+  .nav-links a.active{color:var(--cyan);background:rgba(94,234,212,.12)}
   .nav-links a:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
   @media(max-width:880px){.nav-links{display:none}}
 
@@ -104,10 +99,7 @@
     font-size:clamp(38px,7vw,82px);letter-spacing:-.01em;margin:18px 0 8px;
   }
   .hero h1 .neg{color:var(--ink-mute);font-weight:500}
-  .hero h1 .pos{
-    color:var(--cyan);
-    text-shadow:0 0 30px rgba(94,234,212,.3);
-  }
+  .hero h1 .pos{color:var(--cyan);text-shadow:0 0 30px rgba(94,234,212,.3)}
   .hero .lede{max-width:640px;font-size:clamp(16px,2vw,19px);color:var(--ink-mute);font-weight:300;margin-top:26px}
   .hero .lede b{color:var(--ink);font-weight:500}
   .hero-meta{display:flex;flex-wrap:wrap;gap:14px;margin-top:40px}
@@ -118,7 +110,6 @@
   }
   .chip b{color:var(--cyan);font-weight:500}
 
-  /* 三栏定位（统计/投资/治理） */
   .triad{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;margin-top:60px;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--line)}
   .triad .cell{background:var(--sea-2);padding:26px 24px}
   .triad .cell:last-child{background:linear-gradient(180deg,rgba(94,234,212,.07),var(--sea-2))}
@@ -134,6 +125,15 @@
   .sec-head h2{font-family:var(--serif);font-weight:700;font-size:clamp(26px,3.6vw,40px);margin:16px 0 14px;line-height:1.2}
   .sec-head p{color:var(--ink-mute);font-weight:300;font-size:16px}
   .sec-head p b{color:var(--ink);font-weight:500}
+
+  /* v1.2: canvas操作指引 */
+  .canvas-instruction{
+    display:flex;align-items:center;gap:10px;margin-bottom:16px;padding:10px 16px;
+    background:rgba(94,234,212,.06);border:1px solid rgba(94,234,212,.2);border-radius:10px;
+    font-size:13px;color:var(--ink-mute);
+  }
+  .canvas-instruction .ci-icon{font-size:16px}
+  .canvas-instruction b{color:var(--cyan);font-weight:500}
 
   /* ===== 五层漏斗 ===== */
   .funnel{display:flex;flex-direction:column;align-items:center;gap:14px}
@@ -151,7 +151,6 @@
   .layer .lsub{font-size:13px;color:var(--ink-mute);font-weight:300;margin-top:2px}
   .layer .lcount{font-family:var(--mono);font-weight:700;font-size:clamp(18px,2.4vw,26px);color:var(--ink);white-space:nowrap;text-align:right}
   .layer .lcount span{display:block;font-size:10.5px;font-weight:400;color:var(--ink-faint);letter-spacing:.12em}
-  /* 漏斗收窄：逐层减宽 */
   .funnel .layer:nth-child(1){max-width:100%}
   .funnel .layer:nth-child(2){max-width:88%}
   .funnel .layer:nth-child(3){max-width:74%}
@@ -163,7 +162,7 @@
     .layer .lcount{text-align:left}
   }
 
-  /* ===== 节点地图（signature） ===== */
+  /* ===== 节点地图 v1.2：赛道分列布局 ===== */
   .map-shell{
     border:1px solid var(--line);border-radius:18px;overflow:hidden;
     background:radial-gradient(120% 120% at 50% 0%,var(--sea-2),var(--sea-0));
@@ -174,17 +173,19 @@
   .map-legend{margin-left:auto;display:flex;gap:6px;flex-wrap:wrap}
   .lg{
     display:flex;align-items:center;gap:7px;cursor:pointer;user-select:none;
-    font-size:12.5px;color:var(--ink-mute);padding:5px 11px;border-radius:999px;border:1px solid transparent;transition:.2s;
+    font-size:12.5px;color:var(--ink-mute);padding:5px 11px;border-radius:999px;border:1px solid var(--line);transition:.2s;
+    background:rgba(11,42,57,.5);
   }
-  .lg:hover{border-color:var(--line)}
-  .lg.off{opacity:.32}
+  .lg:hover{border-color:var(--cyan);color:var(--ink)}
+  .lg.off{opacity:.4}
   .lg .sw{width:9px;height:9px;border-radius:50%}
+  .lg .ct{font-family:var(--mono);font-size:10px;color:var(--ink-faint)}
   .lg:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
-  #nodeCanvas{display:block;width:100%;height:460px}
-  @media(max-width:600px){#nodeCanvas{height:380px}}
+  #nodeCanvas{display:block;width:100%;height:520px}
+  @media(max-width:600px){#nodeCanvas{height:420px}}
   .map-tip{
     position:absolute;pointer-events:none;opacity:0;transform:translateY(4px);transition:opacity .15s;
-    background:rgba(4,20,29,.95);border:1px solid var(--line);border-radius:10px;
+    background:rgba(4,20,29,.95);border:1px solid var(--cyan);border-radius:10px;
     padding:10px 13px;font-size:12.5px;max-width:230px;z-index:5;backdrop-filter:blur(4px);
   }
   .map-tip .tip-name{font-weight:500;margin-bottom:3px}
@@ -204,7 +205,6 @@
   .track .tk-sig{margin-top:12px;padding-top:12px;border-top:1px dashed var(--line);font-size:12.5px;color:var(--ink)}
   .track .tk-sig b{color:var(--tc);font-weight:500;font-family:var(--mono);font-size:11px;letter-spacing:.08em;display:block;margin-bottom:3px}
 
-  /* 不做什么 */
   .boundary{margin-top:28px;border:1px dashed var(--line);border-radius:14px;padding:22px 24px;background:rgba(11,42,57,.4)}
   .boundary h4{font-family:var(--mono);font-size:12px;letter-spacing:.12em;color:var(--ink-faint);text-transform:uppercase;margin-bottom:12px}
   .boundary p{font-size:14px;color:var(--ink-mute);font-weight:300}
@@ -212,7 +212,6 @@
 
   /* ===== 创新信号矩阵 ===== */
   .signals{display:flex;flex-direction:column;gap:10px}
-  .sig{display:grid;grid-template-columns:30px 1fr 120px 64px;align-items:center;gap:16px;padding:6px 0}
   .sig .sg-no{font-family:var(--mono);font-size:12px;color:var(--ink-faint)}
   .sig .sg-name{font-size:14.5px}
   .sig .sg-src{font-family:var(--mono);font-size:10.5px;color:var(--ink-faint);text-align:right;letter-spacing:.03em}
@@ -245,6 +244,20 @@
   .road .ph li::before{content:"";position:absolute;left:0;top:9px;width:5px;height:5px;border-radius:50%;background:var(--cyan);opacity:.7}
   @media(max-width:760px){.road{grid-template-columns:1fr}.road .ph{border-left:none;border-top:1px solid var(--line)}.road .ph:first-child{border-top:none}}
 
+  /* v1.2: 回到顶部按钮 */
+  .back-top{
+    position:fixed;bottom:32px;right:32px;z-index:50;
+    width:44px;height:44px;border-radius:50%;
+    background:rgba(11,42,57,.85);border:1px solid var(--line);
+    color:var(--cyan);font-size:20px;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;
+    opacity:0;transform:translateY(10px);transition:opacity .25s,transform .25s;
+    backdrop-filter:blur(8px);
+  }
+  .back-top.visible{opacity:1;transform:translateY(0)}
+  .back-top:hover{border-color:var(--cyan);background:rgba(94,234,212,.12)}
+  .back-top:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
+
   /* ===== footer ===== */
   footer{position:relative;z-index:2;border-top:1px solid var(--line);padding:54px 0 70px;margin-top:30px}
   .pub{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:30px}
@@ -257,10 +270,12 @@
 <body>
 <div class="chart-bg"></div>
 
+<button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="回到顶部">↑</button>
+
 <nav>
   <div class="nav-in">
     <div class="brand"><span class="dot"></span> 广州涉海创新节点地图</div>
-    <div class="nav-links">
+    <div class="nav-links" id="navLinks">
       <a href="#concept">核心理念</a>
       <a href="#funnel">五层漏斗</a>
       <a href="#map">节点地图</a>
@@ -272,7 +287,6 @@
   </div>
 </nav>
 
-<!-- HERO -->
 <header class="hero">
   <div class="wrap">
     <div class="hero-coord">23°06′47″N　113°15′32″E　·　广州　·　基准日期 2026.06</div>
@@ -305,7 +319,6 @@
   </div>
 </header>
 
-<!-- 核心理念 -->
 <section id="concept">
   <div class="wrap">
     <div class="sec-head">
@@ -316,7 +329,6 @@
   </div>
 </section>
 
-<!-- 五层漏斗 -->
 <section id="funnel" style="padding-top:0;border-top:none">
   <div class="wrap">
     <div class="sec-head">
@@ -335,17 +347,20 @@
   </div>
 </section>
 
-<!-- 节点地图 -->
+<!-- 节点地图 v1.2 -->
 <section id="map" style="border-top:none;padding-top:0">
   <div class="wrap">
     <div class="sec-head">
       <div class="eyebrow"><span class="idx">03</span><span class="tick"></span>节点地图</div>
       <h2>八十个节点，五条赛道</h2>
-      <p>每个节点是一家治理服务型涉海企业，按赛道着色、按创新信号分赋大小。点击图例可切换赛道，悬停查看企业画像。<b>当前为示例数据</b>，正式版接入涉海单位名录后即可呈现真实分布热力图。</p>
+      <p>每个节点是一家治理服务型涉海企业，<b>按赛道分列排列、按创新信号分决定大小</b>。<b>当前为示例数据</b>，正式版接入涉海单位名录后即可呈现真实分布热力图。</p>
+    </div>
+    <div class="canvas-instruction">
+      <span class="ci-icon">👆</span> 悬停节点看企业画像　<span class="ci-icon">🎯</span> 点击下方图例按钮切换赛道　<span class="ci-icon">📊</span> 节点越大＝创新信号越强
     </div>
     <div class="map-shell">
       <div class="map-top">
-        <span class="mt-label">分布热力图 · NODE MAP</span>
+        <span class="mt-label">赛道分列 · NODE MAP</span>
         <div class="map-legend" id="legend"></div>
       </div>
       <canvas id="nodeCanvas"></canvas>
@@ -355,7 +370,6 @@
   </div>
 </section>
 
-<!-- 五大赛道 -->
 <section id="tracks">
   <div class="wrap">
     <div class="sec-head">
@@ -364,32 +378,27 @@
     </div>
     <div class="tracks">
       <div class="track" style="--tc:var(--t1)">
-        <div class="tk-id">赛道 01</div>
-        <div class="tk-name">海岸带技术服务</div>
+        <div class="tk-id">赛道 01</div><div class="tk-name">海岸带技术服务</div>
         <div class="tk-feat">海岸侵蚀防治、滨海湿地修复、岸线监测</div>
         <div class="tk-sig"><b>创新信号</b>有自主产品 / 技术标准，非纯施工</div>
       </div>
       <div class="track" style="--tc:var(--t2)">
-        <div class="tk-id">赛道 02</div>
-        <div class="tk-name">城市地质数字化</div>
+        <div class="tk-id">赛道 02</div><div class="tk-name">城市地质数字化</div>
         <div class="tk-feat">地下空间探测、地质数据 SaaS、InSAR 服务</div>
         <div class="tk-sig"><b>创新信号</b>数据产品可复用，非项目制</div>
       </div>
       <div class="track" style="--tc:var(--t3)">
-        <div class="tk-id">赛道 03</div>
-        <div class="tk-name">蓝碳与生态补偿</div>
+        <div class="tk-id">赛道 03</div><div class="tk-name">蓝碳与生态补偿</div>
         <div class="tk-feat">碳汇监测、红树林养护、生态价值核算</div>
         <div class="tk-sig"><b>创新信号</b>有方法学或核算工具，非纯咨询</div>
       </div>
       <div class="track" style="--tc:var(--t4)">
-        <div class="tk-id">赛道 04</div>
-        <div class="tk-name">海洋经济数据服务</div>
+        <div class="tk-id">赛道 04</div><div class="tk-name">海洋经济数据服务</div>
         <div class="tk-feat">涉海企业画像、供应链图谱、贸易数据</div>
         <div class="tk-sig"><b>创新信号</b>数据产品有付费用户</div>
       </div>
       <div class="track" style="--tc:var(--t5)">
-        <div class="tk-id">赛道 05</div>
-        <div class="tk-name">近海装备与新材料</div>
+        <div class="tk-id">赛道 05</div><div class="tk-name">近海装备与新材料</div>
         <div class="tk-feat">小型 ROV、传感器、耐腐蚀材料、监测浮标</div>
         <div class="tk-sig"><b>创新信号</b>有自主知识产权 + 小批量交付</div>
       </div>
@@ -401,7 +410,6 @@
   </div>
 </section>
 
-<!-- 创新信号矩阵 -->
 <section id="signals">
   <div class="wrap">
     <div class="sec-head">
@@ -414,7 +422,6 @@
   </div>
 </section>
 
-<!-- 应用场景 -->
 <section id="apply">
   <div class="wrap">
     <div class="sec-head">
@@ -430,7 +437,6 @@
   </div>
 </section>
 
-<!-- 路线图 -->
 <section id="road">
   <div class="wrap">
     <div class="sec-head">
@@ -472,8 +478,9 @@
 
 <script>
 /* ============================================================
+   v1.2 — 诺曼七原则优化版
+   改动：赛道分列布局 · 悬停发光 · 切换计数 · 导航高亮 · 回到顶部
    数据接口预留：正式版把 DEMO_NODES 换成名录真实数据即可
-   字段：{name 企业名, track 赛道索引0-4, score 创新信号分0-100}
    ============================================================ */
 const TRACKS = [
   {key:'t1', name:'海岸带技术服务', color:'#3ad48a'},
@@ -483,7 +490,6 @@ const TRACKS = [
   {key:'t5', name:'近海装备与新材料', color:'#ff9f45'},
 ];
 
-// —— 生成确定性的示例节点（看起来像真实分布）——
 function buildDemo(){
   let seed=20260601;
   const rnd=()=>{seed=(seed*1103515245+12345)&0x7fffffff;return seed/0x7fffffff;};
@@ -493,12 +499,11 @@ function buildDemo(){
     4:['海工','海材','海测','潜行','洋感']
   };
   const tails=['科技','工程','信息','环境','数据','检测','智造','装备','研究院','测绘'];
-  const counts=[16,16,15,16,17]; // 每赛道节点数，合计80
+  const counts=[16,16,15,16,17];
   const nodes=[];
   counts.forEach((c,t)=>{
     for(let i=0;i<c;i++){
       const nm=stems[t][Math.floor(rnd()*stems[t].length)]+'·'+tails[Math.floor(rnd()*tails.length)];
-      // 信号分偏态：多数中等，少数高分
       const score=Math.round(32+Math.pow(rnd(),1.7)*62);
       nodes.push({name:nm,track:t,score});
     }
@@ -507,76 +512,161 @@ function buildDemo(){
 }
 const DEMO_NODES = buildDemo();
 
-/* ---- 图例 ---- */
+/* ---- 图例 v1.2: 带节点计数 ---- */
 const legendEl=document.getElementById('legend');
 const active=[true,true,true,true,true];
+const counts=[16,16,15,16,17]; // 每赛道节点数
+
 TRACKS.forEach((t,i)=>{
   const el=document.createElement('button');
   el.className='lg';el.type='button';
-  el.innerHTML=`<span class="sw" style="background:${t.color};box-shadow:0 0 8px ${t.color}"></span>${t.name}`;
-  el.onclick=()=>{active[i]=!active[i];el.classList.toggle('off',!active[i]);};
+  el.setAttribute('aria-pressed','true');
+  el.innerHTML=`<span class="sw" style="background:${t.color};box-shadow:0 0 8px ${t.color}"></span>${t.name}<span class="ct">${counts[i]}</span>`;
+  el.onclick=()=>{
+    active[i]=!active[i];
+    el.classList.toggle('off',!active[i]);
+    el.setAttribute('aria-pressed',active[i]);
+    updateVisibleCount();
+  };
   legendEl.appendChild(el);
 });
 
-/* ---- 节点地图（canvas）---- */
+function updateVisibleCount(){
+  const visible=DEMO_NODES.filter(n=>active[n.track]).length;
+  document.getElementById('mapFoot').textContent=`示例数据 · 当前可见 ${visible}/${DEMO_NODES.length} 个节点　|　接口预留：将 DEMO_NODES 替换为名录真实数据即可`;
+}
+
+/* ---- 节点地图 v1.2：赛道分列布局 + 悬停发光 ---- */
 const cv=document.getElementById('nodeCanvas');
 const ctx=cv.getContext('2d');
 const tip=document.getElementById('tip');
-let W,H,DPR,parts=[],sweep=0,raf;
+let W,H,DPR,parts=[],sweep=0,raf,hoverIdx=-1;
 const reduce=window.matchMedia('(prefers-reduced-motion:reduce)').matches;
 
 function init(){
   DPR=Math.min(window.devicePixelRatio||1,2);
   W=cv.clientWidth;H=cv.clientHeight;
   cv.width=W*DPR;cv.height=H*DPR;ctx.setTransform(DPR,0,0,DPR,0,0);
-  parts=DEMO_NODES.map((n,i)=>({
-    n,
-    x:Math.random()*W,y:Math.random()*H,
-    vx:(Math.random()-.5)*.18,vy:(Math.random()-.5)*.18,
-    r:4+ (n.score/100)*9
-  }));
+  parts=[];
+
+  // 五列布局：每个赛道一列
+  const colW=W/5;
+  const marginX=colW*.18;
+  const marginY=50;
+  const usableH=H-marginY*2;
+
+  const trackNodes=[[],[],[],[],[]];
+  DEMO_NODES.forEach(n=>trackNodes[n.track].push(n));
+
+  trackNodes.forEach((nodes,t)=>{
+    const cx=colW*t+colW/2;
+    const usableW=colW-marginX*2;
+    nodes.forEach((n,i)=>{
+      // 在列内随机水平偏移+垂直分布
+      const baseY=marginY+(usableH/(nodes.length+1))*(i+1);
+      const jitterX=(Math.random()-.5)*usableW*.7;
+      const jitterY=(Math.random()-.5)*(usableH/nodes.length)*.5;
+      parts.push({
+        n,
+        bx:cx+jitterX, // base position (column-aligned)
+        by:baseY+jitterY,
+        x:cx+jitterX,
+        y:baseY+jitterY,
+        r:4+(n.score/100)*9,
+        vx:(Math.random()-.5)*.08,
+        vy:(Math.random()-.5)*.08,
+        colX:cx
+      });
+    });
+  });
 }
+
 function draw(){
   ctx.clearRect(0,0,W,H);
-  // 同心等深线
-  ctx.save();ctx.strokeStyle='rgba(22,64,79,.5)';ctx.lineWidth=1;
-  const cx=W*.5,cy=H*.5;
-  for(let r=60;r<Math.max(W,H);r+=58){ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);ctx.stroke();}
+
+  // 赛道分隔线
+  ctx.save();
+  ctx.strokeStyle='rgba(22,64,79,.3)';
+  ctx.lineWidth=1;
+  ctx.setLineDash([4,8]);
+  for(let i=1;i<5;i++){
+    const x=W/5*i;
+    ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke();
+  }
+  // 列标签
+  ctx.fillStyle='rgba(125,154,166,.35)';
+  ctx.font='11px "JetBrains Mono","SFMono-Regular",monospace';
+  ctx.textAlign='center';
+  TRACKS.forEach((t,i)=>{
+    const x=W/5*i+W/10;
+    ctx.fillText(t.name,x,24);
+  });
   ctx.restore();
+
   // 声呐扫描
   if(!reduce){
+    const cx=W*.5,cy=H*.5;
     const g=ctx.createConicGradient ? ctx.createConicGradient(sweep,cx,cy):null;
-    if(g){g.addColorStop(0,'rgba(94,234,212,.10)');g.addColorStop(.06,'rgba(94,234,212,0)');g.addColorStop(1,'rgba(94,234,212,0)');
+    if(g){g.addColorStop(0,'rgba(94,234,212,.06)');g.addColorStop(.06,'rgba(94,234,212,0)');g.addColorStop(1,'rgba(94,234,212,0)');
       ctx.fillStyle=g;ctx.beginPath();ctx.arc(cx,cy,Math.max(W,H)*.7,0,Math.PI*2);ctx.fill();}
-    sweep+=0.006;
+    sweep+=0.004;
   }
+
   // 节点
-  parts.forEach(p=>{
+  parts.forEach((p,idx)=>{
     if(!active[p.n.track])return;
+    // 微漂移（约束在列内）
+    if(!reduce){
+      p.x+=p.vx;p.y+=p.vy;
+      const halfCol=W/10;
+      if(p.x<p.colX-halfCol+p.r||p.x>p.colX+halfCol-p.r)p.vx*=-1;
+      if(p.y<p.r+30||p.y>H-p.r-10)p.vy*=-1;
+    }
+
     const c=TRACKS[p.n.track].color;
-    if(!reduce){p.x+=p.vx;p.y+=p.vy;
-      if(p.x<p.r||p.x>W-p.r)p.vx*=-1;
-      if(p.y<p.r||p.y>H-p.r)p.vy*=-1;}
+    const isHover=idx===hoverIdx;
+
+    // 悬停光晕
+    if(isHover){
+      ctx.save();
+      ctx.shadowColor=c;
+      ctx.shadowBlur=20;
+    }
+
+    // 外圈
     ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-    ctx.fillStyle=c;ctx.globalAlpha=.18;ctx.fill();
-    ctx.globalAlpha=1;ctx.lineWidth=1.4;ctx.strokeStyle=c;ctx.stroke();
-    ctx.beginPath();ctx.arc(p.x,p.y,p.r*.3,0,Math.PI*2);ctx.fillStyle=c;ctx.fill();
+    ctx.fillStyle=c;ctx.globalAlpha=isHover?.35:.18;ctx.fill();
+    ctx.globalAlpha=isHover?1:.7;ctx.lineWidth=isHover?2:1.4;ctx.strokeStyle=c;ctx.stroke();
+
+    // 内核
+    ctx.beginPath();ctx.arc(p.x,p.y,p.r*(isHover?.4:.3),0,Math.PI*2);
+    ctx.fillStyle=c;ctx.fill();
+
+    if(isHover)ctx.restore();
+    ctx.globalAlpha=1;
   });
+
   raf=requestAnimationFrame(draw);
 }
-// 悬停
+
+// 悬停检测
 cv.addEventListener('mousemove',e=>{
   const rc=cv.getBoundingClientRect();
-  const mx=e.clientX-rc.left,my=e.clientY-rc.top;let hit=null;
-  for(const p of parts){if(!active[p.n.track])continue;
-    if((mx-p.x)**2+(my-p.y)**2<(p.r+4)**2){hit=p;break;}}
+  const mx=e.clientX-rc.left,my=e.clientY-rc.top;
+  let hitIdx=-1,hit=null;
+  for(let i=parts.length-1;i>=0;i--){
+    const p=parts[i];
+    if(!active[p.n.track])continue;
+    if((mx-p.x)**2+(my-p.y)**2<(p.r+6)**2){hitIdx=i;hit=p;break;}
+  }
+  hoverIdx=hitIdx;
   if(hit){
     tip.style.opacity=1;tip.style.left=Math.min(mx+14,W-220)+'px';tip.style.top=(my+14)+'px';
     tip.innerHTML=`<div class="tip-name">${hit.n.name}</div><div class="tip-meta">${TRACKS[hit.n.track].name} · 信号分 ${hit.n.score}</div>`;
     cv.style.cursor='pointer';
   }else{tip.style.opacity=0;cv.style.cursor='default';}
 });
-cv.addEventListener('mouseleave',()=>{tip.style.opacity=0;});
+cv.addEventListener('mouseleave',()=>{tip.style.opacity=0;hoverIdx=-1;});
 
 /* ---- 信号矩阵 ---- */
 const SIGNALS=[
@@ -594,6 +684,7 @@ const SIGNALS=[
 const sigWrap=document.getElementById('signals');
 SIGNALS.forEach((s,i)=>{
   const row=document.createElement('div');
+  row.className='sig';
   row.innerHTML=`
     <div class="sig-row">
       <div class="sg-no">${String(i+1).padStart(2,'0')}</div>
@@ -605,12 +696,41 @@ SIGNALS.forEach((s,i)=>{
   sigWrap.appendChild(row);
 });
 
-/* ---- 启动 + 动画进入 ---- */
+/* ---- v1.2: 导航高亮 ---- */
+const navLinks=document.querySelectorAll('.nav-links a');
+const sections=[];
+navLinks.forEach(a=>{
+  const id=a.getAttribute('href').slice(1);
+  const el=document.getElementById(id);
+  if(el)sections.push({el,link:a});
+});
+
+function updateNav(){
+  const scrollY=window.scrollY+120;
+  let current=null;
+  sections.forEach(({el,link})=>{
+    if(el.offsetTop<=scrollY)current=link;
+  });
+  navLinks.forEach(a=>a.classList.remove('active'));
+  if(current)current.classList.add('active');
+}
+
+/* ---- v1.2: 回到顶部按钮 ---- */
+const backTop=document.getElementById('backTop');
+function updateBackTop(){
+  backTop.classList.toggle('visible',window.scrollY>600);
+}
+
+window.addEventListener('scroll',()=>{updateNav();updateBackTop();});
+
+/* ---- 启动 ---- */
 function start(){init();cancelAnimationFrame(raf);draw();}
 window.addEventListener('resize',()=>{cancelAnimationFrame(raf);start();});
 start();
+updateNav();
+updateBackTop();
 
-// 信号条进度：进入视口时填充
+// 信号条进度
 const io=new IntersectionObserver(es=>{
   es.forEach(e=>{if(e.isIntersecting){
     document.querySelectorAll('.sg-fill').forEach(f=>{f.style.width=(f.dataset.w/20*100)+'%';});
