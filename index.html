@@ -80,10 +80,8 @@
   .triad .desc{font-size:12.5px;color:var(--ink-mute)}
   @media(max-width:720px){.triad{grid-template-columns:1fr}}
 
-  /* ===== Section 交替背景 ===== */
-  section{position:relative;z-index:2;padding:72px 0}
-  section.dark{background:var(--sea-1);border-top:1px solid var(--line-soft);border-bottom:1px solid rgba(0,0,0,.3)}
-  section.light{background:var(--sea-0)}
+  /* ===== Section 统一底色 ===== */
+  section{position:relative;z-index:2;padding:64px 0;border-top:1px solid rgba(22,64,79,.25)}
 
   .sec-eyebrow{display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:11px;letter-spacing:.2em;color:var(--cyan)}
   .sec-eyebrow .idx{color:var(--ink-faint)}
@@ -195,11 +193,7 @@
   @media(max-width:760px){.road{grid-template-columns:1fr}.road .ph{border-left:none;border-top:1px solid var(--line)}.road .ph:first-child{border-top:none}}
 
   /* ===== footer ===== */
-  footer{position:relative;z-index:2;padding:50px 0 60px;background:var(--sea-1);border-top:1px solid var(--line)}
-  .pub{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:24px}
-  .pub .org{border:1px solid var(--line);border-radius:8px;padding:12px 18px;background:rgba(11,42,57,.4)}
-  .pub .org .r{font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--ink-faint);margin-bottom:3px}
-  .pub .org .n{font-size:13px;color:var(--ink)}
+  footer{position:relative;z-index:2;padding:40px 0 50px;border-top:1px solid var(--line)}
   .foot-meta{font-family:var(--mono);font-size:11px;color:var(--ink-faint);line-height:1.8}
 </style>
 </head>
@@ -242,7 +236,7 @@
 </header>
 
 <!-- 核心理念 -->
-<section class="dark">
+<section>
   <div class="wrap">
     <div class="sec-eyebrow"><span class="idx">01</span><span class="tick"></span>核心理念</div>
     <div class="sec-head"><h2>关联度分类，而非产值排序</h2><p class="sub">锚定中心<b>三位一体职能</b>（地质调查＋海洋调查＋城市地质）的数据底座——这三样数据是广州独有的。</p></div>
@@ -256,7 +250,7 @@
 </section>
 
 <!-- 五层漏斗 -->
-<section class="light" id="funnel">
+<section id="funnel">
   <div class="wrap">
     <div class="sec-eyebrow"><span class="idx">02</span><span class="tick"></span>筛选漏斗</div>
     <div class="sec-head"><h2>从五千家，到八十家</h2><p class="sub">不虚报，有多少筛多少。池子小→密度更高→质量更好。</p></div>
@@ -272,7 +266,7 @@
 </section>
 
 <!-- 节点地图 -->
-<section class="dark" id="map">
+<section id="map">
   <div class="wrap">
     <div class="sec-eyebrow"><span class="idx">03</span><span class="tick"></span>节点地图</div>
     <div class="sec-head"><h2>八十个节点，五条赛道</h2><p class="sub">五个形状区分赛道，颜色来自海洋调色板。<b>示例数据</b>，正式版替换为真实坐标。</p></div>
@@ -288,7 +282,7 @@
 </section>
 
 <!-- 五大赛道 -->
-<section class="light" id="tracks">
+<section id="tracks">
   <div class="wrap">
     <div class="sec-eyebrow"><span class="idx">04</span><span class="tick"></span>赛道与边界</div>
     <div class="sec-head"><h2>不求全覆盖，只锚定比较优势</h2></div>
@@ -301,7 +295,7 @@
 </section>
 
 <!-- 信号矩阵 -->
-<section class="dark" id="signals">
+<section id="signals">
   <div class="wrap">
     <div class="sec-eyebrow"><span class="idx">05</span><span class="tick"></span>信号矩阵</div>
     <div class="sec-head"><h2>十个信号，三级权重</h2><p class="sub">🟢 核心信号（1-4）＝转型深度+政府合作　🟡 中等（5-7）＝技术积累　⚪ 参考（8-10）＝基础指标</p></div>
@@ -310,7 +304,7 @@
 </section>
 
 <!-- 应用场景 -->
-<section class="light" id="apply">
+<section id="apply">
   <div class="wrap">
     <div class="sec-eyebrow"><span class="idx">06</span><span class="tick"></span>应用场景</div>
     <div class="sec-head"><h2>给谁看，用来干什么</h2></div>
@@ -324,27 +318,21 @@
 </section>
 
 <!-- 路线图 -->
-<section class="dark" id="road">
+<section id="road">
   <div class="wrap">
     <div class="sec-eyebrow"><span class="idx">07</span><span class="tick"></span>实施路线</div>
     <div class="sec-head"><h2>七周，三阶段</h2></div>
     <div class="road">
       <div class="ph"><div class="pnum">Phase 01</div><div class="pname">数据摸底</div><div class="pdur">1个月</div><ul><li>导出名录+标注经营范围</li><li>企查查补专利/招投标</li><li>完成L1-L3自动分类</li></ul></div>
       <div class="ph"><div class="pnum">Phase 02</div><div class="pname">人工核对</div><div class="pdur">2周</div><ul><li>逐家核对治理关联度</li><li>深度背景调查</li><li>定最终节点+观察区</li></ul></div>
-      <div class="ph"><div class="pnum">Phase 03</div><div class="pname">发布</div><div class="pdur">1周</div><ul><li>制作分布热力图</li><li>编写赛道分析报告</li><li>三方联合发布</li></ul></div>
+      <div class="ph"><div class="pnum">Phase 03</div><div class="pname">发布</div><div class="pdur">1周</div><ul><li>制作分布热力图</li><li>编写赛道分析报告</li><li>正式发布</li></ul></div>
     </div>
   </div>
 </section>
 
 <footer>
   <div class="wrap">
-    <div class="sec-eyebrow" style="margin-bottom:18px"><span class="idx">08</span><span class="tick"></span>联合发布</div>
-    <div class="pub">
-      <div class="org"><div class="r">背书</div><div class="n">市海洋经济发展领导小组</div></div>
-      <div class="org"><div class="r">技术联合</div><div class="n">市规划院 · 市地质调查院</div></div>
-      <div class="org"><div class="r">业务指导</div><div class="n">省自然资源厅海洋处</div></div>
-    </div>
-    <div class="foot-meta">编制单位　广州海洋发展促进中心　·　2026年6月　·　每年更新</div>
+    <div class="foot-meta" style="text-align:center;padding:20px 0">编制单位　广州海洋发展促进中心　·　2026年6月　·　每年更新</div>
   </div>
 </footer>
 
