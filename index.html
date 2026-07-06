@@ -20,11 +20,12 @@
     --ink-mute:#8badb8;
     --ink-faint:#6a8996;
     --cyan:#5eead4;
-    --t1:#3ad48a;
-    --t2:#4da3ff;
-    --t3:#23b8a3;
-    --t4:#b48bff;
-    --t5:#ff9f45;
+    /* 五大赛道 — 海洋调色板 */
+    --t1:#f4845f;  /* 珊瑚 → 海岸带 */
+    --t2:#4dabf7;  /* 深海蓝 → 地质数字化 */
+    --t3:#51cf66;  /* 海藻绿 → 蓝碳生态 */
+    --t4:#22d3ee;  /* 荧光青 → 数据服务 */
+    --t5:#fcc419;  /* 航海金 → 装备材料 */
     --serif:"Noto Serif SC",serif;
     --sans:"Noto Sans SC",system-ui,sans-serif;
     --mono:"JetBrains Mono","SFMono-Regular",monospace;
@@ -438,11 +439,11 @@
    节点散布在广州涉海区域（南沙港、黄埔港、番禺、珠江口）
    ============================================================ */
 const TRACKS = [
-  {key:'t1', name:'海岸带技术服务', color:'#3ad48a', shape:'diamond'},
-  {key:'t2', name:'城市地质数字化', color:'#4da3ff', shape:'triangle'},
-  {key:'t3', name:'蓝碳与生态补偿', color:'#23b8a3', shape:'circle'},
-  {key:'t4', name:'海洋经济数据服务', color:'#b48bff', shape:'square'},
-  {key:'t5', name:'近海装备与新材料', color:'#ff9f45', shape:'star'},
+  {key:'t1', name:'海岸带技术服务', color:'#f4845f', shape:'diamond'},
+  {key:'t2', name:'城市地质数字化', color:'#4dabf7', shape:'triangle'},
+  {key:'t3', name:'蓝碳与生态补偿', color:'#51cf66', shape:'circle'},
+  {key:'t4', name:'海洋经济数据服务', color:'#22d3ee', shape:'square'},
+  {key:'t5', name:'近海装备与新材料', color:'#fcc419', shape:'star'},
 ];
 
 function buildDemo(){
