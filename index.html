@@ -17,8 +17,8 @@
     --line:#16404f;
     --line-soft:#0e2c39;
     --ink:#e9f3f4;
-    --ink-mute:#7d9aa6;
-    --ink-faint:#4d6b78;
+    --ink-mute:#8badb8;
+    --ink-faint:#6a8996;
     --cyan:#5eead4;
     --t1:#3ad48a;
     --t2:#4da3ff;
@@ -160,19 +160,33 @@
   .lg .ct{font-family:var(--mono);font-size:10px;color:var(--ink-faint)}
   .lg:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
 
-  /* Leaflet 地图容器 */
+  /* Leaflet 地图容器 + 卫星底图暗色滤镜 */
   #leafletMap{width:100%;height:580px;z-index:1}
+  #leafletMap .leaflet-tile-pane{filter:brightness(.55) saturate(.6) contrast(1.1) hue-rotate(-8deg)}
   @media(max-width:600px){#leafletMap{height:420px}}
 
   /* 覆盖 Leaflet 默认控件样式以匹配暗色主题 */
   .leaflet-container{background:var(--sea-0)!important;font-family:var(--sans)}
   .leaflet-control-zoom a{
-    background:rgba(11,42,57,.85)!important;color:var(--ink-mute)!important;
+    background:rgba(7,31,43,.9)!important;color:var(--ink-mute)!important;
     border-color:var(--line)!important;backdrop-filter:blur(8px);
+    width:34px!important;height:34px!important;line-height:34px!important;
+    font-size:16px!important;
   }
-  .leaflet-control-zoom a:hover{color:var(--cyan)!important}
-  .leaflet-control-attribution{background:rgba(4,20,29,.7)!important;color:var(--ink-faint)!important;font-size:10px!important;padding:2px 6px!important}
+  .leaflet-control-zoom a:hover{color:var(--cyan)!important;background:rgba(16,49,64,.9)!important}
+  .leaflet-control-attribution{
+    background:rgba(7,31,43,.8)!important;color:var(--ink-faint)!important;
+    font-size:10px!important;padding:3px 8px!important;border-radius:4px!important;
+  }
   .leaflet-control-attribution a{color:var(--ink-mute)!important}
+  .leaflet-popup-content-wrapper{
+    background:rgba(7,31,43,.95)!important;color:var(--ink)!important;
+    border-radius:10px!important;box-shadow:0 4px 20px rgba(0,0,0,.5)!important;
+    border:1px solid var(--line)!important;
+  }
+  .leaflet-popup-tip{background:rgba(7,31,43,.95)!important}
+  .leaflet-popup-close-button{color:var(--ink-mute)!important}
+  .leaflet-popup-close-button:hover{color:var(--cyan)!important}
 
   .map-foot{padding:12px 20px;border-top:1px solid var(--line-soft);font-family:var(--mono);font-size:11px;color:var(--ink-faint);letter-spacing:.05em}
 
@@ -424,11 +438,11 @@
    节点散布在广州涉海区域（南沙港、黄埔港、番禺、珠江口）
    ============================================================ */
 const TRACKS = [
-  {key:'t1', name:'海岸带技术服务', color:'#3ad48a'},
-  {key:'t2', name:'城市地质数字化', color:'#4da3ff'},
-  {key:'t3', name:'蓝碳与生态补偿', color:'#23b8a3'},
-  {key:'t4', name:'海洋经济数据服务', color:'#b48bff'},
-  {key:'t5', name:'近海装备与新材料', color:'#ff9f45'},
+  {key:'t1', name:'海岸带技术服务', color:'#3ad48a', shape:'diamond'},
+  {key:'t2', name:'城市地质数字化', color:'#4da3ff', shape:'triangle'},
+  {key:'t3', name:'蓝碳与生态补偿', color:'#23b8a3', shape:'circle'},
+  {key:'t4', name:'海洋经济数据服务', color:'#b48bff', shape:'square'},
+  {key:'t5', name:'近海装备与新材料', color:'#ff9f45', shape:'star'},
 ];
 
 function buildDemo(){
@@ -500,7 +514,8 @@ TRACKS.forEach((t,i)=>{
   const el=document.createElement('button');
   el.className='lg';el.type='button';
   el.setAttribute('aria-pressed','true');
-  el.innerHTML=`<span class="sw" style="background:${t.color};box-shadow:0 0 8px ${t.color}"></span>${t.name}<span class="ct">${counts[i]}</span>`;
+  const shapeIcons={diamond:'◆',triangle:'▲',circle:'●',square:'■',star:'★'};
+  el.innerHTML=`<span class="sw" style="color:${t.color};background:transparent;font-size:14px;box-shadow:none">${shapeIcons[t.shape]}</span>${t.name}<span class="ct">${counts[i]}</span>`;
   el.onclick=()=>{
     active[i]=!active[i];
     el.classList.toggle('off',!active[i]);
@@ -518,37 +533,61 @@ function updateVisibleCount(){
   document.getElementById('mapFoot').textContent=`示例数据 · 当前可见 ${visible}/${DEMO_NODES.length} 个节点　|　底图：ESRI World Imagery　|　正式版：替换为真实坐标`;
 }
 
-/* ---- 节点标记 ---- */
-DEMO_NODES.forEach(n=>{
-  const color=TRACKS[n.track].color;
-  const radius=5+(n.score/100)*8; // 5-13px
+/* ---- 节点标记 v2.1：双编码（颜色+形状）---- */
+// SVG 形状定义
+const shapeSVGs = {
+  diamond: (c,w,h)=>`<polygon points="${w/2},1 ${w-1},${h/2} ${w/2},${h-1} 1,${h/2}" fill="${c}" stroke="${c}" stroke-width="2" opacity="0.9"/>`,
+  triangle: (c,w,h)=>`<polygon points="${w/2},2 ${w-2},${h-2} 2,${h-2}" fill="${c}" stroke="${c}" stroke-width="2" opacity="0.9"/>`,
+  circle: (c,w,h)=>`<circle cx="${w/2}" cy="${h/2}" r="${w/2-2}" fill="${c}" stroke="${c}" stroke-width="2" opacity="0.9"/>`,
+  square: (c,w,h)=>`<rect x="2" y="2" width="${w-4}" height="${h-4}" rx="2" fill="${c}" stroke="${c}" stroke-width="2" opacity="0.9"/>`,
+  star: (c,w,h)=>`<polygon points="${w/2},2 ${w*.62},${h*.35} ${w-2},${h*.38} ${w*.68},${h*.58} ${w*.78},${h-2} ${w/2},${h*.72} ${w*.22},${h-2} ${w*.32},${h*.58} 2,${h*.38} ${w*.38},${h*.35}" fill="${c}" stroke="${c}" stroke-width="1.5" opacity="0.9"/>`,
+};
 
-  const marker=L.circleMarker([n.lat,n.lng],{
-    radius:radius,
-    fillColor:color,
-    color:color,
-    weight:1.5,
-    opacity:0.8,
-    fillOpacity:0.7,
-  }).addTo(map);
+DEMO_NODES.forEach(n=>{
+  const track=TRACKS[n.track];
+  const color=track.color;
+  const shape=track.shape;
+  const size=16+(n.score/100)*20; // 16-36px
+
+  const svgURL='data:image/svg+xml,'+encodeURIComponent(
+    `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 ${size} ${size}">`+
+    shapeSVGs[shape](color,size,size)+
+    '</svg>'
+  );
+
+  const icon=L.icon({
+    iconUrl:svgURL,
+    iconSize:[size,size],
+    iconAnchor:[size/2,size/2],
+    popupAnchor:[0,-size/2],
+  });
+
+  const marker=L.marker([n.lat,n.lng],{icon:icon}).addTo(map);
 
   // 悬停放大
   marker.on('mouseover',function(){
-    this.setStyle({weight:3,opacity:1,fillOpacity:0.9});
-    this.setRadius(radius*1.5);
+    const s=size*1.5;
+    const svgURL2='data:image/svg+xml,'+encodeURIComponent(
+      `<svg xmlns="http://www.w3.org/2000/svg" width="${s}" height="${s}" viewBox="0 0 ${s} ${s}">`+
+      shapeSVGs[shape](color,s,s)+
+      '</svg>'
+    );
+    const icon2=L.icon({iconUrl:svgURL2,iconSize:[s,s],iconAnchor:[s/2,s/2],popupAnchor:[0,-s/2]});
+    this.setIcon(icon2);
+    this.setZIndexOffset(1000);
   });
   marker.on('mouseout',function(){
-    this.setStyle({weight:1.5,opacity:0.8,fillOpacity:0.7});
-    this.setRadius(radius);
+    this.setIcon(icon);
+    this.setZIndexOffset(0);
   });
 
   marker.bindPopup(`
     <div style="font-family:'Noto Sans SC',sans-serif;min-width:160px">
       <div style="font-weight:700;font-size:14px;margin-bottom:4px">${n.name}</div>
-      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:${color}">${TRACKS[n.track].name}</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:${color}">${track.name}</div>
       <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#888;margin-top:4px">创新信号分 ${n.score}</div>
     </div>
-  `,{closeButton:false,className:'dark-popup'});
+  `,{closeButton:false});
 
   markersByTrack[n.track].push(marker);
 });
