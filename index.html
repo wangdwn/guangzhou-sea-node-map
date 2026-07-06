@@ -20,241 +20,187 @@
     --ink-mute:#8badb8;
     --ink-faint:#6a8996;
     --cyan:#5eead4;
-    /* 五大赛道 — 海洋调色板 */
-    --t1:#f4845f;  /* 珊瑚 → 海岸带 */
-    --t2:#4dabf7;  /* 深海蓝 → 地质数字化 */
-    --t3:#51cf66;  /* 海藻绿 → 蓝碳生态 */
-    --t4:#22d3ee;  /* 荧光青 → 数据服务 */
-    --t5:#fcc419;  /* 航海金 → 装备材料 */
-    --serif:"Noto Serif SC",serif;
-    --sans:"Noto Sans SC",system-ui,sans-serif;
+    /* 海洋调色板 */
+    --t1:#f4845f;--t2:#4dabf7;--t3:#51cf66;--t4:#22d3ee;--t5:#fcc419;
+    /* 信号优先级 */
+    --sig-hi:#5eead4;--sig-mid:#fcc419;--sig-lo:#6a8996;
+    --serif:"Noto Serif SC",serif;--sans:"Noto Sans SC",system-ui,sans-serif;
     --mono:"JetBrains Mono","SFMono-Regular",monospace;
     --mw:1180px;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
-  body{
-    background:var(--sea-1);
-    color:var(--ink);
-    font-family:var(--sans);
-    font-weight:400;
-    line-height:1.7;
-    -webkit-font-smoothing:antialiased;
-    overflow-x:hidden;
-  }
-  @media (prefers-reduced-motion:reduce){
-    html{scroll-behavior:auto}
-    *{animation:none!important;transition:none!important}
-  }
-  .chart-bg{
-    position:fixed;inset:0;z-index:0;pointer-events:none;
-    background:
-      radial-gradient(120% 90% at 80% -10%, rgba(94,234,212,.07), transparent 55%),
-      radial-gradient(130% 100% at 10% 110%, rgba(77,163,255,.06), transparent 55%),
-      linear-gradient(180deg,var(--sea-0),var(--sea-1) 40%,var(--sea-1));
-  }
-  .chart-bg::before{
-    content:"";position:absolute;inset:0;opacity:.5;
-    background-image:
-      linear-gradient(var(--line-soft) 1px,transparent 1px),
-      linear-gradient(90deg,var(--line-soft) 1px,transparent 1px);
-    background-size:64px 64px;
-    mask-image:radial-gradient(120% 120% at 50% 30%,#000 30%,transparent 88%);
-  }
+  body{background:var(--sea-0);color:var(--ink);font-family:var(--sans);font-weight:400;line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+
+  .chart-bg{position:fixed;inset:0;z-index:0;pointer-events:none;
+    background:radial-gradient(120% 90% at 80% -10%,rgba(94,234,212,.05),transparent 55%),
+               radial-gradient(130% 100% at 10% 110%,rgba(77,163,255,.04),transparent 55%),
+               linear-gradient(180deg,var(--sea-0),var(--sea-1) 40%,var(--sea-1));}
+  .chart-bg::before{content:"";position:absolute;inset:0;opacity:.35;
+    background-image:linear-gradient(var(--line-soft) 1px,transparent 1px),linear-gradient(90deg,var(--line-soft) 1px,transparent 1px);
+    background-size:64px 64px;mask-image:radial-gradient(120% 120% at 50% 30%,#000 30%,transparent 88%);}
+
   .wrap{max-width:var(--mw);margin:0 auto;padding:0 28px;position:relative;z-index:2}
 
-  .eyebrow{
-    font-family:var(--mono);font-size:11.5px;letter-spacing:.22em;
-    text-transform:uppercase;color:var(--cyan);display:flex;align-items:center;gap:12px;
-  }
-  .eyebrow .idx{color:var(--ink-faint)}
-  .eyebrow .tick{flex:0 0 28px;height:1px;background:var(--cyan);opacity:.6}
-
-  nav{
-    position:sticky;top:0;z-index:40;
-    backdrop-filter:blur(14px);
-    background:linear-gradient(180deg,rgba(4,20,29,.92),rgba(4,20,29,.6));
-    border-bottom:1px solid var(--line-soft);
-  }
-  .nav-in{max-width:var(--mw);margin:0 auto;padding:14px 28px;display:flex;align-items:center;gap:24px}
-  .brand{display:flex;align-items:baseline;gap:10px;font-family:var(--mono);font-size:12.5px;letter-spacing:.12em;color:var(--ink)}
-  .brand .dot{width:8px;height:8px;border-radius:50%;background:var(--cyan);box-shadow:0 0 12px var(--cyan);align-self:center}
-  .nav-links{margin-left:auto;display:flex;gap:6px;flex-wrap:wrap}
-  .nav-links a{
-    font-family:var(--mono);font-size:12px;letter-spacing:.06em;
-    color:var(--ink-mute);text-decoration:none;padding:6px 11px;border-radius:6px;transition:.2s;
-  }
+  /* ===== 导航 ===== */
+  nav{position:sticky;top:0;z-index:40;backdrop-filter:blur(14px);background:linear-gradient(180deg,rgba(4,20,29,.94),rgba(4,20,29,.65));border-bottom:1px solid var(--line-soft)}
+  .nav-in{max-width:var(--mw);margin:0 auto;padding:12px 28px;display:flex;align-items:center;gap:20px}
+  .brand{display:flex;align-items:baseline;gap:8px;font-family:var(--mono);font-size:12px;letter-spacing:.1em;color:var(--ink);white-space:nowrap}
+  .brand .dot{width:7px;height:7px;border-radius:50%;background:var(--cyan);box-shadow:0 0 10px var(--cyan)}
+  .nav-links{margin-left:auto;display:flex;gap:2px;flex-wrap:wrap}
+  .nav-links a{font-family:var(--mono);font-size:11.5px;letter-spacing:.05em;color:var(--ink-mute);text-decoration:none;padding:5px 10px;border-radius:5px;transition:.2s}
   .nav-links a:hover{color:var(--cyan);background:rgba(94,234,212,.08)}
   .nav-links a.active{color:var(--cyan);background:rgba(94,234,212,.12)}
-  .nav-links a:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
   @media(max-width:880px){.nav-links{display:none}}
 
-  header.hero{position:relative;z-index:2;padding:88px 0 72px}
-  .hero-coord{font-family:var(--mono);font-size:11.5px;letter-spacing:.2em;color:var(--ink-faint);margin-bottom:30px}
-  .hero h1{font-family:var(--serif);font-weight:900;line-height:1.12;font-size:clamp(38px,7vw,82px);letter-spacing:-.01em;margin:18px 0 8px}
+  .back-top{position:fixed;bottom:28px;right:28px;z-index:50;width:40px;height:40px;border-radius:50%;background:rgba(7,31,43,.85);border:1px solid var(--line);color:var(--cyan);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;transform:translateY(10px);transition:opacity .25s,transform .25s;backdrop-filter:blur(8px)}
+  .back-top.visible{opacity:1;transform:translateY(0)}
+  .back-top:hover{border-color:var(--cyan);background:rgba(94,234,212,.12)}
+
+  /* ===== HERO ===== */
+  header.hero{position:relative;z-index:2;padding:80px 0 60px}
+  .hero-coord{font-family:var(--mono);font-size:11px;letter-spacing:.18em;color:var(--ink-faint);margin-bottom:24px}
+  .hero h1{font-family:var(--serif);font-weight:900;line-height:1.1;font-size:clamp(36px,6.5vw,76px);letter-spacing:-.01em;margin:12px 0 6px}
   .hero h1 .neg{color:var(--ink-mute);font-weight:500}
-  .hero h1 .pos{color:var(--cyan);text-shadow:0 0 30px rgba(94,234,212,.3)}
-  .hero .lede{max-width:640px;font-size:clamp(16px,2vw,19px);color:var(--ink-mute);font-weight:300;margin-top:26px}
+  .hero h1 .pos{color:var(--cyan);text-shadow:0 0 30px rgba(94,234,212,.25)}
+  .hero .lede{max-width:600px;font-size:clamp(15px,1.8vw,18px);color:var(--ink-mute);font-weight:300;margin-top:22px}
   .hero .lede b{color:var(--ink);font-weight:500}
-  .hero-meta{display:flex;flex-wrap:wrap;gap:14px;margin-top:40px}
-  .chip{font-family:var(--mono);font-size:12px;letter-spacing:.04em;border:1px solid var(--line);border-radius:999px;padding:8px 16px;color:var(--ink-mute);background:rgba(11,42,57,.5)}
+  .hero-meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:32px}
+  .chip{font-family:var(--mono);font-size:11.5px;letter-spacing:.03em;border:1px solid var(--line);border-radius:999px;padding:7px 14px;color:var(--ink-mute);background:rgba(11,42,57,.5)}
   .chip b{color:var(--cyan);font-weight:500}
 
-  .triad{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;margin-top:60px;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--line)}
-  .triad .cell{background:var(--sea-2);padding:26px 24px}
-  .triad .cell:last-child{background:linear-gradient(180deg,rgba(94,234,212,.07),var(--sea-2))}
-  .triad .role{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-faint)}
-  .triad .tool{font-family:var(--serif);font-size:26px;font-weight:700;margin:8px 0 6px}
+  /* 三栏 */
+  .triad{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;margin-top:50px;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--line)}
+  .triad .cell{background:var(--sea-2);padding:22px 20px;text-align:center}
+  .triad .cell:last-child{background:linear-gradient(180deg,rgba(94,234,212,.06),var(--sea-2))}
+  .triad .role{font-family:var(--mono);font-size:10.5px;letter-spacing:.15em;color:var(--ink-faint)}
+  .triad .tool{font-family:var(--serif);font-size:22px;font-weight:700;margin:6px 0 4px}
   .triad .cell:last-child .tool{color:var(--cyan)}
-  .triad .desc{font-size:13.5px;color:var(--ink-mute);font-weight:300}
+  .triad .desc{font-size:12.5px;color:var(--ink-mute)}
   @media(max-width:720px){.triad{grid-template-columns:1fr}}
 
-  section{position:relative;z-index:2;padding:84px 0;border-top:1px solid var(--line-soft)}
-  .sec-head{margin-bottom:46px;max-width:760px}
-  .sec-head h2{font-family:var(--serif);font-weight:700;font-size:clamp(26px,3.6vw,40px);margin:16px 0 14px;line-height:1.2}
-  .sec-head p{color:var(--ink-mute);font-weight:300;font-size:16px}
-  .sec-head p b{color:var(--ink);font-weight:500}
+  /* ===== Section 交替背景 ===== */
+  section{position:relative;z-index:2;padding:72px 0}
+  section.dark{background:var(--sea-1);border-top:1px solid var(--line-soft);border-bottom:1px solid rgba(0,0,0,.3)}
+  section.light{background:var(--sea-0)}
 
-  .canvas-instruction{
-    display:flex;align-items:center;gap:10px;margin-bottom:16px;padding:10px 16px;
-    background:rgba(94,234,212,.06);border:1px solid rgba(94,234,212,.2);border-radius:10px;
-    font-size:13px;color:var(--ink-mute);
-  }
-  .canvas-instruction .ci-icon{font-size:16px}
-  .canvas-instruction b{color:var(--cyan);font-weight:500}
+  .sec-eyebrow{display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:11px;letter-spacing:.2em;color:var(--cyan)}
+  .sec-eyebrow .idx{color:var(--ink-faint)}
+  .sec-eyebrow .tick{flex:0 0 24px;height:1px;background:var(--cyan);opacity:.5}
 
-  /* 漏斗 */
-  .funnel{display:flex;flex-direction:column;align-items:center;gap:14px}
-  .layer{position:relative;width:100%;background:linear-gradient(90deg,var(--sea-3),var(--sea-2));border:1px solid var(--line);border-radius:12px;padding:20px 26px;display:flex;align-items:center;gap:22px;transition:transform .25s,border-color .25s}
+  .sec-head{margin-bottom:36px;max-width:700px}
+  .sec-head h2{font-family:var(--serif);font-weight:700;font-size:clamp(24px,3.2vw,36px);margin:14px 0 10px;line-height:1.2}
+  .sec-head .sub{color:var(--ink-mute);font-size:15px;font-weight:300}
+  .sec-head .sub b{color:var(--ink);font-weight:500}
+
+  /* ===== 大数字展示 ===== */
+  .big-nums{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin:28px 0}
+  .big-num{text-align:center;padding:16px 8px}
+  .big-num .num{font-family:var(--serif);font-size:clamp(36px,5vw,56px);font-weight:900;color:var(--cyan);line-height:1}
+  .big-num .label{font-size:12.5px;color:var(--ink-mute);margin-top:6px}
+  @media(max-width:600px){.big-nums{grid-template-columns:repeat(2,1fr)}}
+
+  /* ===== 漏斗 ===== */
+  .funnel{display:flex;flex-direction:column;align-items:center;gap:10px}
+  .layer{position:relative;width:100%;background:linear-gradient(90deg,rgba(16,49,64,.6),rgba(11,42,57,.4));border:1px solid var(--line);border-radius:10px;padding:16px 22px;display:flex;align-items:center;gap:18px;transition:transform .2s,border-color .2s}
   .layer:hover{transform:translateY(-2px);border-color:var(--cyan)}
-  .layer .ln{font-family:var(--mono);font-size:13px;color:var(--cyan);flex:0 0 56px}
-  .layer .lbody{flex:1;min-width:0}
-  .layer .ltitle{font-weight:500;font-size:16px}
-  .layer .lsub{font-size:13px;color:var(--ink-mute);font-weight:300;margin-top:2px}
-  .layer .lcount{font-family:var(--mono);font-weight:700;font-size:clamp(18px,2.4vw,26px);color:var(--ink);white-space:nowrap;text-align:right}
-  .layer .lcount span{display:block;font-size:10.5px;font-weight:400;color:var(--ink-faint);letter-spacing:.12em}
+  .layer .ln{font-family:var(--mono);font-size:12px;color:var(--cyan);flex:0 0 40px}
+  .layer .lbody{flex:1}
+  .layer .ltitle{font-weight:500;font-size:15px}
+  .layer .lsub{font-size:12.5px;color:var(--ink-mute);font-weight:300;margin-top:1px}
+  .layer .lcount{font-family:var(--mono);font-weight:700;font-size:clamp(16px,2vw,24px);color:var(--ink);white-space:nowrap;text-align:right}
+  .layer .lcount span{font-size:10px;font-weight:400;color:var(--ink-faint)}
   .funnel .layer:nth-child(1){max-width:100%}
-  .funnel .layer:nth-child(2){max-width:88%}
-  .funnel .layer:nth-child(3){max-width:74%}
-  .funnel .layer:nth-child(4){max-width:60%}
-  .funnel .layer:nth-child(5){max-width:46%;border-color:var(--cyan);background:linear-gradient(90deg,rgba(94,234,212,.1),var(--sea-2))}
-  .funnel-note{text-align:center;margin-top:26px;font-family:var(--mono);font-size:12px;color:var(--ink-faint);letter-spacing:.06em}
-  @media(max-width:720px){.funnel .layer{max-width:100%!important;flex-wrap:wrap;gap:8px}.layer .lcount{text-align:left}}
+  .funnel .layer:nth-child(2){max-width:86%}
+  .funnel .layer:nth-child(3){max-width:72%}
+  .funnel .layer:nth-child(4){max-width:58%}
+  .funnel .layer:nth-child(5){max-width:44%;border-color:var(--cyan);background:linear-gradient(90deg,rgba(94,234,212,.1),rgba(11,42,57,.4))}
+  .funnel-note{text-align:center;margin-top:20px;font-family:var(--mono);font-size:11.5px;color:var(--ink-faint)}
+  @media(max-width:720px){.funnel .layer{max-width:100%!important;flex-wrap:wrap}.layer .lcount{text-align:left}}
 
-  /* ===== 节点地图 v2：卫星底图 ===== */
-  .map-shell{
-    border:1px solid var(--line);border-radius:18px;overflow:hidden;
-    background:var(--sea-0);
-    position:relative;
-  }
-  .map-top{display:flex;align-items:center;gap:14px;padding:16px 20px;border-bottom:1px solid var(--line-soft);flex-wrap:wrap}
-  .map-top .mt-label{font-family:var(--mono);font-size:11.5px;letter-spacing:.16em;color:var(--ink-faint);text-transform:uppercase}
-  .map-legend{margin-left:auto;display:flex;gap:6px;flex-wrap:wrap}
-  .lg{
-    display:flex;align-items:center;gap:7px;cursor:pointer;user-select:none;
-    font-size:12.5px;color:var(--ink-mute);padding:5px 11px;border-radius:999px;border:1px solid var(--line);transition:.2s;
-    background:rgba(11,42,57,.7);
-  }
+  /* ===== 节点地图 ===== */
+  .map-shell{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--sea-0);position:relative}
+  .map-top{display:flex;align-items:center;gap:12px;padding:12px 18px;border-bottom:1px solid var(--line-soft);flex-wrap:wrap}
+  .mt-label{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--ink-faint)}
+  .map-legend{margin-left:auto;display:flex;gap:4px;flex-wrap:wrap}
+  .lg{display:flex;align-items:center;gap:6px;cursor:pointer;user-select:none;font-size:12px;color:var(--ink-mute);padding:4px 10px;border-radius:999px;border:1px solid var(--line);transition:.2s;background:rgba(11,42,57,.6)}
   .lg:hover{border-color:var(--cyan);color:var(--ink)}
-  .lg.off{opacity:.4}
-  .lg .sw{width:9px;height:9px;border-radius:50%}
+  .lg.off{opacity:.35}
+  .lg .sw{font-size:13px;line-height:1}
   .lg .ct{font-family:var(--mono);font-size:10px;color:var(--ink-faint)}
-  .lg:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
+  .canvas-instruction{display:flex;align-items:center;gap:12px;margin-bottom:14px;padding:8px 14px;background:rgba(94,234,212,.05);border:1px solid rgba(94,234,212,.15);border-radius:8px;font-size:12.5px;color:var(--ink-mute)}
+  .canvas-instruction span{color:var(--cyan)}
 
-  /* Leaflet 地图容器 + 卫星底图暗色滤镜 */
-  #leafletMap{width:100%;height:580px;z-index:1}
+  #leafletMap{width:100%;height:560px;z-index:1}
   #leafletMap .leaflet-tile-pane{filter:brightness(.55) saturate(.6) contrast(1.1) hue-rotate(-8deg)}
-  @media(max-width:600px){#leafletMap{height:420px}}
+  @media(max-width:600px){#leafletMap{height:400px}}
 
-  /* 覆盖 Leaflet 默认控件样式以匹配暗色主题 */
   .leaflet-container{background:var(--sea-0)!important;font-family:var(--sans)}
-  .leaflet-control-zoom a{
-    background:rgba(7,31,43,.9)!important;color:var(--ink-mute)!important;
-    border-color:var(--line)!important;backdrop-filter:blur(8px);
-    width:34px!important;height:34px!important;line-height:34px!important;
-    font-size:16px!important;
-  }
+  .leaflet-control-zoom a{background:rgba(7,31,43,.9)!important;color:var(--ink-mute)!important;border-color:var(--line)!important;width:32px!important;height:32px!important;line-height:32px!important;font-size:15px!important}
   .leaflet-control-zoom a:hover{color:var(--cyan)!important;background:rgba(16,49,64,.9)!important}
-  .leaflet-control-attribution{
-    background:rgba(7,31,43,.8)!important;color:var(--ink-faint)!important;
-    font-size:10px!important;padding:3px 8px!important;border-radius:4px!important;
-  }
+  .leaflet-control-attribution{background:rgba(7,31,43,.75)!important;color:var(--ink-faint)!important;font-size:9px!important;padding:2px 6px!important;border-radius:3px!important}
   .leaflet-control-attribution a{color:var(--ink-mute)!important}
-  .leaflet-popup-content-wrapper{
-    background:rgba(7,31,43,.95)!important;color:var(--ink)!important;
-    border-radius:10px!important;box-shadow:0 4px 20px rgba(0,0,0,.5)!important;
-    border:1px solid var(--line)!important;
-  }
+  .leaflet-popup-content-wrapper{background:rgba(7,31,43,.95)!important;color:var(--ink)!important;border-radius:8px!important;box-shadow:0 4px 16px rgba(0,0,0,.5)!important;border:1px solid var(--line)!important}
   .leaflet-popup-tip{background:rgba(7,31,43,.95)!important}
   .leaflet-popup-close-button{color:var(--ink-mute)!important}
   .leaflet-popup-close-button:hover{color:var(--cyan)!important}
 
-  .map-foot{padding:12px 20px;border-top:1px solid var(--line-soft);font-family:var(--mono);font-size:11px;color:var(--ink-faint);letter-spacing:.05em}
+  .map-foot{padding:10px 18px;border-top:1px solid var(--line-soft);font-family:var(--mono);font-size:10.5px;color:var(--ink-faint)}
 
-  /* 赛道卡片 */
-  .tracks{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-top:22px}
-  .track{border:1px solid var(--line);border-radius:14px;padding:20px;background:var(--sea-2);border-top:3px solid var(--tc);transition:transform .25s,box-shadow .25s}
-  .track:hover{transform:translateY(-3px);box-shadow:0 14px 40px rgba(0,0,0,.35)}
-  .track .tk-id{font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:var(--tc)}
-  .track .tk-name{font-family:var(--serif);font-weight:700;font-size:19px;margin:8px 0 10px}
-  .track .tk-feat{font-size:13px;color:var(--ink-mute);font-weight:300}
-  .track .tk-sig{margin-top:12px;padding-top:12px;border-top:1px dashed var(--line);font-size:12.5px;color:var(--ink)}
-  .track .tk-sig b{color:var(--tc);font-weight:500;font-family:var(--mono);font-size:11px;letter-spacing:.08em;display:block;margin-bottom:3px}
+  /* ===== 赛道卡片 ===== */
+  .tracks{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin-top:18px}
+  .track{border:1px solid var(--line);border-radius:12px;padding:18px;background:var(--sea-2);border-left:3px solid var(--tc);transition:transform .2s,box-shadow .2s}
+  .track:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(0,0,0,.3)}
+  .track .tk-icon{font-size:28px;margin-bottom:8px}
+  .track .tk-name{font-family:var(--serif);font-weight:700;font-size:17px;margin-bottom:6px}
+  .track .tk-feat{font-size:12.5px;color:var(--ink-mute);font-weight:300;margin-bottom:10px}
+  .track .tk-sig{font-size:11.5px;color:var(--tc);font-family:var(--mono);padding-top:8px;border-top:1px dashed var(--line)}
+  .track .tk-sig .w{color:var(--ink);font-weight:700}
 
-  .boundary{margin-top:28px;border:1px dashed var(--line);border-radius:14px;padding:22px 24px;background:rgba(11,42,57,.4)}
-  .boundary h4{font-family:var(--mono);font-size:12px;letter-spacing:.12em;color:var(--ink-faint);text-transform:uppercase;margin-bottom:12px}
-  .boundary p{font-size:14px;color:var(--ink-mute);font-weight:300}
-  .boundary p b{color:var(--ink);font-weight:500}
+  .boundary{margin-top:20px;border:1px dashed var(--line);border-radius:12px;padding:18px 20px;background:rgba(11,42,57,.3)}
+  .boundary h4{font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;color:var(--ink-faint);margin-bottom:8px}
+  .boundary p{font-size:13px;color:var(--ink-mute)}
 
-  /* 信号矩阵 */
-  .signals{display:flex;flex-direction:column;gap:10px}
-  .sig .sg-no{font-family:var(--mono);font-size:12px;color:var(--ink-faint)}
-  .sig .sg-name{font-size:14.5px}
-  .sig .sg-src{font-family:var(--mono);font-size:10.5px;color:var(--ink-faint);text-align:right;letter-spacing:.03em}
-  .sig .sg-bar{grid-column:2/5;height:6px;border-radius:3px;background:var(--line-soft);overflow:hidden;margin-top:-2px}
-  .sig .sg-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--cyan),#4da3ff);width:0;transition:width 1.1s cubic-bezier(.2,.8,.2,1)}
-  .sig .sg-w{font-family:var(--mono);font-weight:700;font-size:15px;color:var(--cyan);text-align:right}
-  .sig-row{display:grid;grid-template-columns:30px 1fr 120px 64px;gap:16px;align-items:center}
-  @media(max-width:680px){.sig-row{grid-template-columns:24px 1fr 56px}.sig .sg-src{display:none}}
-  .sig-legend{font-family:var(--mono);font-size:11.5px;color:var(--ink-faint);margin-top:24px;letter-spacing:.04em;line-height:1.8}
+  /* ===== 信号矩阵 v3 ===== */
+  .sig-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:8px}
+  .sig-item{display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:8px;background:rgba(11,42,57,.4);border:1px solid var(--line-soft)}
+  .sig-item .sig-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+  .sig-item .sig-dot.hi{background:var(--sig-hi);box-shadow:0 0 8px var(--sig-hi)}
+  .sig-item .sig-dot.mid{background:var(--sig-mid);box-shadow:0 0 6px var(--sig-mid)}
+  .sig-item .sig-dot.lo{background:var(--sig-lo)}
+  .sig-item .sig-name{flex:1;font-size:13.5px}
+  .sig-item .sig-w{font-family:var(--mono);font-weight:700;font-size:14px;color:var(--cyan)}
+  .sig-item .sig-src{font-family:var(--mono);font-size:10px;color:var(--ink-faint);text-align:right;max-width:110px}
+  @media(max-width:500px){.sig-grid{grid-template-columns:1fr}.sig-item .sig-src{display:none}}
 
-  /* 应用场景 */
-  .aud{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
-  .aud .a{border:1px solid var(--line);border-radius:14px;padding:22px;background:var(--sea-2)}
-  .aud .a .who{font-family:var(--serif);font-weight:700;font-size:18px;margin-bottom:6px}
-  .aud .a .use{font-size:13.5px;color:var(--cyan);font-family:var(--mono);font-size:12px;letter-spacing:.04em;margin-bottom:10px}
-  .aud .a .focus{font-size:13.5px;color:var(--ink-mute);font-weight:300}
+  /* ===== 谁在用 ===== */
+  .aud{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px}
+  .aud .a{border:1px solid var(--line);border-radius:12px;padding:18px;background:var(--sea-2)}
+  .aud .a .who{font-family:var(--serif);font-weight:700;font-size:16px;margin-bottom:6px}
+  .aud .a .who .icon{font-size:20px;margin-right:6px}
+  .aud .a .use{font-size:12px;color:var(--cyan);font-family:var(--mono);letter-spacing:.03em;margin-bottom:8px}
+  .aud .a .focus{font-size:12.5px;color:var(--ink-mute)}
 
-  /* 路线图 */
-  .road{display:grid;grid-template-columns:repeat(3,1fr);gap:0;position:relative}
-  .road .ph{padding:24px 26px;border-left:1px solid var(--line);position:relative}
+  /* ===== 路线图 ===== */
+  .road{display:grid;grid-template-columns:repeat(3,1fr);gap:0}
+  .road .ph{padding:22px 20px;border-left:1px solid var(--line)}
   .road .ph:first-child{border-left:none}
-  .road .ph .pnum{font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:var(--cyan);text-transform:uppercase}
-  .road .ph .pname{font-family:var(--serif);font-weight:700;font-size:20px;margin:8px 0 4px}
-  .road .ph .pdur{font-family:var(--mono);font-size:12px;color:var(--ink-faint);margin-bottom:14px}
-  .road .ph ul{list-style:none;display:flex;flex-direction:column;gap:8px}
-  .road .ph li{font-size:13.5px;color:var(--ink-mute);font-weight:300;padding-left:16px;position:relative}
-  .road .ph li::before{content:"";position:absolute;left:0;top:9px;width:5px;height:5px;border-radius:50%;background:var(--cyan);opacity:.7}
+  .road .ph .pnum{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;color:var(--cyan)}
+  .road .ph .pname{font-family:var(--serif);font-weight:700;font-size:18px;margin:6px 0 2px}
+  .road .ph .pdur{font-family:var(--mono);font-size:11.5px;color:var(--ink-faint);margin-bottom:12px}
+  .road .ph ul{list-style:none;display:flex;flex-direction:column;gap:6px}
+  .road .ph li{font-size:12.5px;color:var(--ink-mute);padding-left:14px;position:relative}
+  .road .ph li::before{content:"·";position:absolute;left:0;top:0;color:var(--cyan)}
   @media(max-width:760px){.road{grid-template-columns:1fr}.road .ph{border-left:none;border-top:1px solid var(--line)}.road .ph:first-child{border-top:none}}
 
-  .back-top{
-    position:fixed;bottom:32px;right:32px;z-index:50;
-    width:44px;height:44px;border-radius:50%;
-    background:rgba(11,42,57,.85);border:1px solid var(--line);
-    color:var(--cyan);font-size:20px;cursor:pointer;
-    display:flex;align-items:center;justify-content:center;
-    opacity:0;transform:translateY(10px);transition:opacity .25s,transform .25s;
-    backdrop-filter:blur(8px);
-  }
-  .back-top.visible{opacity:1;transform:translateY(0)}
-  .back-top:hover{border-color:var(--cyan);background:rgba(94,234,212,.12)}
-
-  footer{position:relative;z-index:2;border-top:1px solid var(--line);padding:54px 0 70px;margin-top:30px}
-  .pub{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:30px}
-  .pub .org{border:1px solid var(--line);border-radius:10px;padding:14px 20px;background:rgba(11,42,57,.5)}
-  .pub .org .r{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;color:var(--ink-faint);text-transform:uppercase;margin-bottom:4px}
-  .pub .org .n{font-size:14px;color:var(--ink)}
-  .foot-meta{font-family:var(--mono);font-size:11.5px;color:var(--ink-faint);letter-spacing:.05em;line-height:1.9}
+  /* ===== footer ===== */
+  footer{position:relative;z-index:2;padding:50px 0 60px;background:var(--sea-1);border-top:1px solid var(--line)}
+  .pub{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:24px}
+  .pub .org{border:1px solid var(--line);border-radius:8px;padding:12px 18px;background:rgba(11,42,57,.4)}
+  .pub .org .r{font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--ink-faint);margin-bottom:3px}
+  .pub .org .n{font-size:13px;color:var(--ink)}
+  .foot-meta{font-family:var(--mono);font-size:11px;color:var(--ink-faint);line-height:1.8}
 </style>
 </head>
 <body>
@@ -263,396 +209,260 @@
 
 <nav>
   <div class="nav-in">
-    <div class="brand"><span class="dot"></span> 广州涉海创新节点地图</div>
+    <div class="brand"><span class="dot"></span>涉海节点地图</div>
     <div class="nav-links" id="navLinks">
-      <a href="#concept">核心理念</a>
-      <a href="#funnel">五层漏斗</a>
-      <a href="#map">节点地图</a>
-      <a href="#tracks">五大赛道</a>
-      <a href="#signals">信号矩阵</a>
-      <a href="#apply">应用场景</a>
-      <a href="#road">路线图</a>
+      <a href="#hero">总览</a>
+      <a href="#funnel">漏斗</a>
+      <a href="#map">地图</a>
+      <a href="#tracks">赛道</a>
+      <a href="#signals">信号</a>
+      <a href="#apply">场景</a>
+      <a href="#road">路线</a>
     </div>
   </div>
 </nav>
 
-<header class="hero">
+<!-- HERO -->
+<header class="hero" id="hero">
   <div class="wrap">
-    <div class="hero-coord">23°06′47″N　113°15′32″E　·　广州　·　基准日期 2026.06</div>
-    <div class="eyebrow"><span class="idx">00</span><span class="tick"></span>战略定位与实施框架</div>
+    <div class="hero-coord">23°06′N 113°15′E · 广州 · 2026</div>
     <h1><span class="neg">不是排名，</span><br>是<span class="pos">导航图</span>。</h1>
-    <p class="lede">对标 Forbes 250「移民＝创新」的叙事逻辑，翻译到广州语境：<b>涉海转型 ＝ 创新</b>。广州的海洋竞争力，不取决于有多少航运巨头或海工龙头，而取决于传统企业向海转型的活跃度，与中小涉海企业嵌入城市治理链条的深度。</p>
+    <p class="lede">广州海洋竞争力不取决于航运巨头或海工龙头，而取决于<b>传统企业向海转型的活跃度</b>，与中小涉海企业嵌入城市治理链条的深度。</p>
     <div class="hero-meta">
-      <span class="chip">评价对象 · <b>中小涉海企业</b></span>
-      <span class="chip">核心指标 · <b>治理贡献度</b></span>
-      <span class="chip">数据底座 · <b>直报系统 + 城市地质监测网 + 海岸带年度调查</b></span>
+      <span class="chip">对象 · <b>中小涉海企业</b></span>
+      <span class="chip">指标 · <b>治理贡献度</b></span>
+      <span class="chip">数据 · <b>直报+地质监测+海岸带调查</b></span>
     </div>
     <div class="triad">
-      <div class="cell">
-        <div class="role">国家海洋经济统计</div><div class="tool">统计工具</div>
-        <div class="desc">完成报表 · 逻辑是「你有多少产值」</div>
-      </div>
-      <div class="cell">
-        <div class="role">深圳海洋产业排名</div><div class="tool">投资工具</div>
-        <div class="desc">招引资本 · 逻辑是「你值多少钱」</div>
-      </div>
-      <div class="cell">
-        <div class="role">广州节点地图</div><div class="tool">治理工具</div>
-        <div class="desc">精准施策 · 逻辑是「你对城市治理目标贡献多大」</div>
-      </div>
+      <div class="cell"><div class="role">国家海洋统计</div><div class="tool">统计工具</div><div class="desc">你有多少产值</div></div>
+      <div class="cell"><div class="role">深圳产业排名</div><div class="tool">投资工具</div><div class="desc">你值多少钱</div></div>
+      <div class="cell"><div class="role">广州节点地图</div><div class="tool">治理工具</div><div class="desc">你对城市贡献多大</div></div>
     </div>
   </div>
 </header>
 
-<section id="concept">
+<!-- 核心理念 -->
+<section class="dark">
   <div class="wrap">
-    <div class="sec-head">
-      <div class="eyebrow"><span class="idx">01</span><span class="tick"></span>核心理念</div>
-      <h2>关联度分类，而非产值排序</h2>
-      <p>赛道选择不追求全覆盖广州海洋经济，而是<b>锚定本中心三位一体职能</b>（综合地质调查＋海洋调查＋城市地质）所能支撑的数据底座。五条赛道的共同特征是数据源排他性——这三样数据是广州独有的。</p>
+    <div class="sec-eyebrow"><span class="idx">01</span><span class="tick"></span>核心理念</div>
+    <div class="sec-head"><h2>关联度分类，而非产值排序</h2><p class="sub">锚定中心<b>三位一体职能</b>（地质调查＋海洋调查＋城市地质）的数据底座——这三样数据是广州独有的。</p></div>
+    <div class="big-nums">
+      <div class="big-num"><div class="num">5</div><div class="label">赛道</div></div>
+      <div class="big-num"><div class="num">80</div><div class="label">核心节点</div></div>
+      <div class="big-num"><div class="num">10</div><div class="label">创新信号指标</div></div>
+      <div class="big-num"><div class="num">3</div><div class="label">独家数据源</div></div>
     </div>
   </div>
 </section>
 
-<section id="funnel" style="padding-top:0;border-top:none">
+<!-- 五层漏斗 -->
+<section class="light" id="funnel">
   <div class="wrap">
-    <div class="sec-head">
-      <div class="eyebrow"><span class="idx">02</span><span class="tick"></span>五层筛选漏斗</div>
-      <h2>从五千家，到八十家</h2>
-      <p>不虚报数字，有多少筛多少。<b>池子小意味着筛选密度更高</b>，最终产出质量反而更好。末层采用软上限，不设硬性数量指标。</p>
-    </div>
+    <div class="sec-eyebrow"><span class="idx">02</span><span class="tick"></span>筛选漏斗</div>
+    <div class="sec-head"><h2>从五千家，到八十家</h2><p class="sub">不虚报，有多少筛多少。池子小→密度更高→质量更好。</p></div>
     <div class="funnel">
-      <div class="layer"><div class="ln">L1</div><div class="lbody"><div class="ltitle">涉海活动单位池</div><div class="lsub">接管现有名录 · 企查查经营范围关键词 + 注册地广州</div></div><div class="lcount">3,000–5,000<span>家</span></div></div>
-      <div class="layer"><div class="ln">L2</div><div class="lbody"><div class="ltitle">中小企业过滤</div><div class="lsub">剔除营收 ≥4亿 / 央企 / 省属子公司 / 上市公司母公司</div></div><div class="lcount">1,000–2,000<span>家</span></div></div>
-      <div class="layer"><div class="ln">L3</div><div class="lbody"><div class="ltitle">涉海转型活跃度</div><div class="lsub">近3年涉海收入占比提升，或新产品 / 服务进入涉海领域</div></div><div class="lcount">300–500<span>家</span></div></div>
-      <div class="layer"><div class="ln">L4</div><div class="lbody"><div class="ltitle">治理关联度打分</div><div class="lsub">近3年政府采购合同 / 科研委托 / 官方认定服务案例</div></div><div class="lcount">100–200<span>家</span></div></div>
-      <div class="layer"><div class="ln">L5</div><div class="lbody"><div class="ltitle">战略价值标签</div><div class="lsub">五大赛道 · 每赛道 10–15 家核心节点 · 软上限 80±20</div></div><div class="lcount">≈ 80<span>家 · 软上限</span></div></div>
+      <div class="layer"><div class="ln">L1</div><div class="lbody"><div class="ltitle">涉海活动单位池</div><div class="lsub">名录+企查查关键词+注册地广州</div></div><div class="lcount">3,000–5,000<span>家</span></div></div>
+      <div class="layer"><div class="ln">L2</div><div class="lbody"><div class="ltitle">中小企业过滤</div><div class="lsub">剔除营收≥4亿/央企/省属子公司</div></div><div class="lcount">1,000–2,000<span>家</span></div></div>
+      <div class="layer"><div class="ln">L3</div><div class="lbody"><div class="ltitle">转型活跃度</div><div class="lsub">近3年涉海收入占比提升</div></div><div class="lcount">300–500<span>家</span></div></div>
+      <div class="layer"><div class="ln">L4</div><div class="lbody"><div class="ltitle">治理关联度</div><div class="lsub">政府采购/科研委托/官方认定</div></div><div class="lcount">100–200<span>家</span></div></div>
+      <div class="layer"><div class="ln">L5</div><div class="lbody"><div class="ltitle">战略价值标签</div><div class="lsub">软上限80±20，边缘观察区保护</div></div><div class="lcount">≈80<span>家</span></div></div>
     </div>
-    <div class="funnel-note">边缘观察区（虚线边界）：排名末尾 ±5 分企业保留观察名单，下一轮更新优先复核——防止「第 100 名找关系」的政治风险。</div>
+    <div class="funnel-note">边缘观察区：排名末尾±5分企业留观察名单——防「第100名找关系」政治风险</div>
   </div>
 </section>
 
-<!-- 节点地图 v2：卫星底图 -->
-<section id="map" style="border-top:none;padding-top:0">
+<!-- 节点地图 -->
+<section class="dark" id="map">
   <div class="wrap">
-    <div class="sec-head">
-      <div class="eyebrow"><span class="idx">03</span><span class="tick"></span>节点地图</div>
-      <h2>八十个节点，五条赛道</h2>
-      <p>每个节点是一家治理服务型涉海企业，<b>标注在卫星影像上</b>，按赛道着色、按创新信号分决定大小。<b>当前为示例数据</b>，正式版接入涉海单位名录后替换为真实坐标。</p>
-    </div>
+    <div class="sec-eyebrow"><span class="idx">03</span><span class="tick"></span>节点地图</div>
+    <div class="sec-head"><h2>八十个节点，五条赛道</h2><p class="sub">五个形状区分赛道，颜色来自海洋调色板。<b>示例数据</b>，正式版替换为真实坐标。</p></div>
     <div class="canvas-instruction">
-      <span class="ci-icon">👆</span> 点击节点看企业画像　<span class="ci-icon">🎯</span> 点击图例按钮切换赛道　<span class="ci-icon">🔍</span> 滚轮缩放地图
+      <span>👆</span>点击节点看画像　<span>🎯</span>图例切换赛道　<span>🔍</span>滚轮缩放
     </div>
     <div class="map-shell">
-      <div class="map-top">
-        <span class="mt-label">卫星影像 · NODE MAP</span>
-        <div class="map-legend" id="legend"></div>
-      </div>
+      <div class="map-top"><span class="mt-label">卫星影像 · NODE MAP</span><div class="map-legend" id="legend"></div></div>
       <div id="leafletMap"></div>
-      <div class="map-foot" id="mapFoot">示例数据 · 共 80 个节点　|　底图：ESRI World Imagery　|　正式版：替换为真实坐标</div>
+      <div class="map-foot" id="mapFoot">示例数据 · 共80节点 · ESRI World Imagery · 正式版替换真实坐标</div>
     </div>
   </div>
 </section>
 
-<section id="tracks">
+<!-- 五大赛道 -->
+<section class="light" id="tracks">
   <div class="wrap">
-    <div class="sec-head">
-      <div class="eyebrow"><span class="idx">04</span><span class="tick"></span>五大赛道与边界理由</div>
-      <h2>不求全覆盖，只锚定比较优势</h2>
-    </div>
-    <div class="tracks">
-      <div class="track" style="--tc:var(--t1)"><div class="tk-id">赛道 01</div><div class="tk-name">海岸带技术服务</div><div class="tk-feat">海岸侵蚀防治、滨海湿地修复、岸线监测</div><div class="tk-sig"><b>创新信号</b>有自主产品 / 技术标准，非纯施工</div></div>
-      <div class="track" style="--tc:var(--t2)"><div class="tk-id">赛道 02</div><div class="tk-name">城市地质数字化</div><div class="tk-feat">地下空间探测、地质数据 SaaS、InSAR 服务</div><div class="tk-sig"><b>创新信号</b>数据产品可复用，非项目制</div></div>
-      <div class="track" style="--tc:var(--t3)"><div class="tk-id">赛道 03</div><div class="tk-name">蓝碳与生态补偿</div><div class="tk-feat">碳汇监测、红树林养护、生态价值核算</div><div class="tk-sig"><b>创新信号</b>有方法学或核算工具，非纯咨询</div></div>
-      <div class="track" style="--tc:var(--t4)"><div class="tk-id">赛道 04</div><div class="tk-name">海洋经济数据服务</div><div class="tk-feat">涉海企业画像、供应链图谱、贸易数据</div><div class="tk-sig"><b>创新信号</b>数据产品有付费用户</div></div>
-      <div class="track" style="--tc:var(--t5)"><div class="tk-id">赛道 05</div><div class="tk-name">近海装备与新材料</div><div class="tk-feat">小型 ROV、传感器、耐腐蚀材料、监测浮标</div><div class="tk-sig"><b>创新信号</b>有自主知识产权 + 小批量交付</div></div>
-    </div>
+    <div class="sec-eyebrow"><span class="idx">04</span><span class="tick"></span>赛道与边界</div>
+    <div class="sec-head"><h2>不求全覆盖，只锚定比较优势</h2></div>
+    <div class="tracks" id="trackCards"></div>
     <div class="boundary">
-      <h4>不做什么 · 边界理由</h4>
-      <p>航运物流价值链顶端在宁波舟山与上海洋山；海洋生物医药 VC 集中于上海张江与深圳光明；海洋文旅核心景区在珠海与三亚。<b>广州在这些赛道缺乏比较优势</b>，故列为「配套赛道」作背景信号监测，不作主攻方向。若某赛道出现突破性企业（如科创板上市），走绿色通道年中插队纳入。</p>
+      <h4>不做什么</h4>
+      <p>航运→宁波舟山；海洋生物医药→上海张江/深圳光明；海洋文旅→珠海/三亚。列为配套监测，有突破性企业绿色通道插队。</p>
     </div>
   </div>
 </section>
 
-<section id="signals">
+<!-- 信号矩阵 -->
+<section class="dark" id="signals">
   <div class="wrap">
-    <div class="sec-head">
-      <div class="eyebrow"><span class="idx">05</span><span class="tick"></span>创新信号矩阵</div>
-      <h2>不按产值排序，按创新信号打分</h2>
-      <p>排名靠前的信号（1–4）集中在<b>涉海业务实质转型 + 政府合作深度</b>，靠后信号（9–10）为参考性指标。这确保地图是治理服务型企业的导航图，而非资本驱动型企业的排行榜。</p>
-    </div>
-    <div class="signals" id="signals"></div>
-    <div class="sig-legend">数据来源均为公开可查：直报系统 · 工商年报 · 企查查/天眼查 · 科技局公示 · 政府采购公告 · 全国标准信息平台 · 资质查询平台</div>
+    <div class="sec-eyebrow"><span class="idx">05</span><span class="tick"></span>信号矩阵</div>
+    <div class="sec-head"><h2>十个信号，三级权重</h2><p class="sub">🟢 核心信号（1-4）＝转型深度+政府合作　🟡 中等（5-7）＝技术积累　⚪ 参考（8-10）＝基础指标</p></div>
+    <div class="sig-grid" id="sigGrid"></div>
   </div>
 </section>
 
-<section id="apply">
+<!-- 应用场景 -->
+<section class="light" id="apply">
   <div class="wrap">
-    <div class="sec-head">
-      <div class="eyebrow"><span class="idx">06</span><span class="tick"></span>战略价值与应用场景</div>
-      <h2>给谁看</h2>
-    </div>
+    <div class="sec-eyebrow"><span class="idx">06</span><span class="tick"></span>应用场景</div>
+    <div class="sec-head"><h2>给谁看，用来干什么</h2></div>
     <div class="aud">
-      <div class="a"><div class="who">市政府 / 发改局</div><div class="use">政策资金投向指引</div><div class="focus">不是投 VC 砸风口，而是补公共服务短板的精准招商。</div></div>
-      <div class="a"><div class="who">自然资源局</div><div class="use">企业动员名单</div><div class="focus">城市地质 / 海岸带规划中，哪些企业能配合完成治理目标。</div></div>
-      <div class="a"><div class="who">科创委</div><div class="use">成果转化供需匹配</div><div class="focus">涉海科研项目与产业化之间的断链点究竟在哪。</div></div>
-      <div class="a"><div class="who">海洋中心自身</div><div class="use">企业数据库</div><div class="focus">日常调研 / 申报 / 服务的各赛道重点联系企业。</div></div>
+      <div class="a"><div class="who"><span class="icon">🏛️</span>市政府/发改局</div><div class="use">政策资金投向指引</div><div class="focus">补公共服务短板，精准招商</div></div>
+      <div class="a"><div class="who"><span class="icon">🏗️</span>自然资源局</div><div class="use">企业动员名单</div><div class="focus">哪些企业能配合治理目标</div></div>
+      <div class="a"><div class="who"><span class="icon">🔬</span>科创委</div><div class="use">成果转化供需匹配</div><div class="focus">科研→产业化的断链点在哪</div></div>
+      <div class="a"><div class="who"><span class="icon">📊</span>海洋中心</div><div class="use">企业数据库</div><div class="focus">各赛道重点联系企业清单</div></div>
     </div>
   </div>
 </section>
 
-<section id="road">
+<!-- 路线图 -->
+<section class="dark" id="road">
   <div class="wrap">
-    <div class="sec-head">
-      <div class="eyebrow"><span class="idx">07</span><span class="tick"></span>实施路线图</div>
-      <h2>七周，三阶段，第一版上线</h2>
-    </div>
+    <div class="sec-eyebrow"><span class="idx">07</span><span class="tick"></span>实施路线</div>
+    <div class="sec-head"><h2>七周，三阶段</h2></div>
     <div class="road">
-      <div class="ph"><div class="pnum">Phase 01</div><div class="pname">数据摸底</div><div class="pdur">1 个月</div><ul><li>导出涉海单位名录，标注经营范围 / 注册时间 / 注册资本</li><li>企查查、天眼查补充专利、软著、招投标数据</li><li>完成 L1–L3 自动分类</li></ul></div>
-      <div class="ph"><div class="pnum">Phase 02</div><div class="pname">人工核对</div><div class="pdur">2 周</div><ul><li>逐家核对 L4 企业的治理关联度</li><li>对 L5 候选企业做深度背景调查</li><li>确定最终节点名单 + 边缘观察区</li></ul></div>
-      <div class="ph"><div class="pnum">Phase 03</div><div class="pname">发布</div><div class="pdur">1 周</div><ul><li>制作分布热力图</li><li>编写赛道分析报告</li><li>三方联合发布</li></ul></div>
+      <div class="ph"><div class="pnum">Phase 01</div><div class="pname">数据摸底</div><div class="pdur">1个月</div><ul><li>导出名录+标注经营范围</li><li>企查查补专利/招投标</li><li>完成L1-L3自动分类</li></ul></div>
+      <div class="ph"><div class="pnum">Phase 02</div><div class="pname">人工核对</div><div class="pdur">2周</div><ul><li>逐家核对治理关联度</li><li>深度背景调查</li><li>定最终节点+观察区</li></ul></div>
+      <div class="ph"><div class="pnum">Phase 03</div><div class="pname">发布</div><div class="pdur">1周</div><ul><li>制作分布热力图</li><li>编写赛道分析报告</li><li>三方联合发布</li></ul></div>
     </div>
   </div>
 </section>
 
 <footer>
   <div class="wrap">
-    <div class="eyebrow" style="margin-bottom:22px"><span class="idx">08</span><span class="tick"></span>联合发布机制</div>
+    <div class="sec-eyebrow" style="margin-bottom:18px"><span class="idx">08</span><span class="tick"></span>联合发布</div>
     <div class="pub">
       <div class="org"><div class="r">背书</div><div class="n">市海洋经济发展领导小组</div></div>
       <div class="org"><div class="r">技术联合</div><div class="n">市规划院 · 市地质调查院</div></div>
       <div class="org"><div class="r">业务指导</div><div class="n">省自然资源厅海洋处</div></div>
     </div>
-    <div class="foot-meta">
-      编制单位　广州海洋发展促进中心<br>
-      基准日期　2026 年 6 月　·　第一版预计产出约 80 家节点企业　·　每年更新一次<br>
-      机制说明　软上限 + 边缘观察区 + 年度更新 + 触发式更新 + 第三年回顾评价
-    </div>
+    <div class="foot-meta">编制单位　广州海洋发展促进中心　·　2026年6月　·　每年更新</div>
   </div>
 </footer>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
 /* ============================================================
-   v2.0 — 卫星底图版
-   Leaflet + ESRI World Imagery
-   节点散布在广州涉海区域（南沙港、黄埔港、番禺、珠江口）
+   v3.0 — 全页重构：分段呼吸 · 信号分级 · 文字精简 · 海洋配色
    ============================================================ */
 const TRACKS = [
-  {key:'t1', name:'海岸带技术服务', color:'#f4845f', shape:'diamond'},
-  {key:'t2', name:'城市地质数字化', color:'#4dabf7', shape:'triangle'},
-  {key:'t3', name:'蓝碳与生态补偿', color:'#51cf66', shape:'circle'},
-  {key:'t4', name:'海洋经济数据服务', color:'#22d3ee', shape:'square'},
-  {key:'t5', name:'近海装备与新材料', color:'#fcc419', shape:'star'},
+  {key:'t1', name:'海岸带技术服务', color:'#f4845f', shape:'diamond', icon:'🏝️', feat:'海岸侵蚀防治·湿地修复·岸线监测', sig:'自主产品/技术标准，非纯施工', w:20},
+  {key:'t2', name:'城市地质数字化', color:'#4dabf7', shape:'triangle', icon:'⛏️', feat:'地下空间探测·地质SaaS·InSAR', sig:'数据产品可复用，非项目制', w:15},
+  {key:'t3', name:'蓝碳与生态补偿', color:'#51cf66', shape:'circle', icon:'🌿', feat:'碳汇监测·红树林养护·生态核算', sig:'有方法学或核算工具', w:15},
+  {key:'t4', name:'海洋经济数据服务', color:'#22d3ee', shape:'square', icon:'📡', feat:'企业画像·供应链图谱·贸易数据', sig:'数据产品有付费用户', w:12},
+  {key:'t5', name:'近海装备与新材料', color:'#fcc419', shape:'star', icon:'⚙️', feat:'小型ROV·传感器·耐腐蚀材料', sig:'自主知识产权+小批量交付', w:10},
 ];
 
+// 赛道卡片
+const trackCards=document.getElementById('trackCards');
+TRACKS.forEach(t=>{
+  const card=document.createElement('div');
+  card.className='track';card.style.setProperty('--tc',t.color);
+  card.innerHTML=`<div class="tk-icon">${t.icon}</div><div class="tk-name">${t.name}</div><div class="tk-feat">${t.feat}</div><div class="tk-sig">🔗 创新信号权重 <span class="w">${t.w}%</span></div>`;
+  trackCards.appendChild(card);
+});
+
+// 信号矩阵 v3：优先级三色
+const SIGNALS=[
+  ['涉海营收近3年变化',20,'直报系统/工商年报','hi'],
+  ['涉海专利/软著数量',15,'企查查/天眼查','hi'],
+  ['市级以上涉海科研项目',15,'科技局公示','hi'],
+  ['服务政府·事业单位记录',12,'政府采购公告','hi'],
+  ['涉海标准参编记录',10,'全国标准平台','mid'],
+  ['创始团队海洋学科背景',10,'公开资料','mid'],
+  ['涉海相关资质',8,'资质查询平台','mid'],
+  ['国家级/省级海洋荣誉',5,'公开表彰','lo'],
+  ['员工人数增长率',3,'工商年报','lo'],
+  ['注册在高新区/孵化器',2,'注册地址','lo'],
+];
+const sigGrid=document.getElementById('sigGrid');
+SIGNALS.forEach((s,i)=>{
+  const item=document.createElement('div');
+  item.className='sig-item';
+  item.innerHTML=`
+    <div class="sig-dot ${s[3]}"></div>
+    <div class="sig-name">${String(i+1).padStart(2,'0')}. ${s[0]}</div>
+    <div class="sig-w">${s[1]}%</div>
+    <div class="sig-src">${s[2]}</div>`;
+  sigGrid.appendChild(item);
+});
+
+/* ---- 地图 ---- */
+const counts=[16,16,15,16,17];
+const shapeIcons={diamond:'◆',triangle:'▲',circle:'●',square:'■',star:'★'};
+
 function buildDemo(){
-  let seed=20260601;
-  const rnd=()=>{seed=(seed*1103515245+12345)&0x7fffffff;return seed/0x7fffffff;};
-  const stems={
-    0:['海岸','岸线','滨海','潮间','护岸'],1:['地探','地信','勘察','岩土','沉降'],
-    2:['蓝碳','红树','碳汇','生态','湿地'],3:['海数','链图','涉海','洋数','蓝图'],
-    4:['海工','海材','海测','潜行','洋感']
-  };
+  let seed=20260601;const rnd=()=>{seed=(seed*1103515245+12345)&0x7fffffff;return seed/0x7fffffff;};
+  const stems={0:['海岸','岸线','滨海','潮间','护岸'],1:['地探','地信','勘察','岩土','沉降'],2:['蓝碳','红树','碳汇','生态','湿地'],3:['海数','链图','涉海','洋数','蓝图'],4:['海工','海材','海测','潜行','洋感']};
   const tails=['科技','工程','信息','环境','数据','检测','智造','装备','研究院','测绘'];
-  const counts=[16,16,15,16,17];
-
-  // 广州涉海热点区域坐标（真实地理范围）
   const zones=[
-    {name:'南沙港区', lat:[22.65,22.80], lng:[113.55,113.72]},       // 南沙港
-    {name:'黄埔港区', lat:[23.06,23.12], lng:[113.42,113.52]},       // 黄埔老港
-    {name:'番禺海鸥岛', lat:[22.88,22.98], lng:[113.48,113.58]},     // 海鸥岛/莲花山
-    {name:'珠江新城', lat:[23.11,23.14], lng:[113.31,113.35]},       // CBD 总部
-    {name:'大学城/生物岛', lat:[23.04,23.07], lng:[113.35,113.41]},  // 科研集聚
-    {name:'龙穴岛', lat:[22.62,22.72], lng:[113.62,113.72]},         // 造船基地
-    {name:'南沙湿地', lat:[22.58,22.68], lng:[113.58,113.70]},       // 湿地/蓝碳
-    {name:'科学城', lat:[23.16,23.20], lng:[113.43,113.50]},         // 高新区
+    {lat:[22.65,22.80],lng:[113.55,113.72]},{lat:[23.06,23.12],lng:[113.42,113.52]},
+    {lat:[22.88,22.98],lng:[113.48,113.58]},{lat:[23.11,23.14],lng:[113.31,113.35]},
+    {lat:[23.04,23.07],lng:[113.35,113.41]},{lat:[22.62,22.72],lng:[113.62,113.72]},
+    {lat:[22.58,22.68],lng:[113.58,113.70]},{lat:[23.16,23.20],lng:[113.43,113.50]},
   ];
-
+  const trackZones=[[0,1,2],[3,4,5],[5,6],[3,4],[5,0]];
   const nodes=[];
   counts.forEach((c,t)=>{
     for(let i=0;i<c;i++){
       const nm=stems[t][Math.floor(rnd()*stems[t].length)]+'·'+tails[Math.floor(rnd()*tails.length)];
       const score=Math.round(32+Math.pow(rnd(),1.7)*62);
-      // 不同赛道偏向不同区域
-      let zoneIdx;
-      if(t===0)zoneIdx=Math.floor(rnd()*3);        // 海岸带→南沙/番禺/湿地
-      else if(t===1)zoneIdx=3+Math.floor(rnd()*3);  // 地质数字化→CBD/科学城
-      else if(t===2)zoneIdx=Math.floor(rnd()*2)+5;  // 蓝碳→龙穴岛/湿地
-      else if(t===3)zoneIdx=3+Math.floor(rnd()*2);  // 数据服务→CBD/大学城
-      else zoneIdx=Math.floor(rnd()*3)+5;            // 装备→龙穴/黄埔
-      const z=zones[zoneIdx];
-      const lat=z.lat[0]+rnd()*(z.lat[1]-z.lat[0]);
-      const lng=z.lng[0]+rnd()*(z.lng[1]-z.lng[0]);
-      nodes.push({name:nm,track:t,score,lat,lng});
+      const z=zones[trackZones[t][Math.floor(rnd()*trackZones[t].length)]];
+      nodes.push({name:nm,track:t,score,lat:z.lat[0]+rnd()*(z.lat[1]-z.lat[0]),lng:z.lng[0]+rnd()*(z.lng[1]-z.lng[0])});
     }
   });
   return nodes;
 }
-const DEMO_NODES = buildDemo();
+const DEMO_NODES=buildDemo();
 
-/* ---- 地图初始化 ---- */
-const map=L.map('leafletMap',{
-  center:[22.95,113.50],
-  zoom:11,
-  zoomControl:true,
-  attributionControl:true,
-}).setMaxBounds([[22.3,113.1],[23.5,113.9]]);
+const map=L.map('leafletMap',{center:[22.95,113.50],zoom:11,zoomControl:true,attributionControl:true}).setMaxBounds([[22.3,113.1],[23.5,113.9]]);
+L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',{attribution:'&copy; Esri',maxZoom:18}).addTo(map);
 
-// ESRI 卫星底图（免费，无需API key）
-L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',{
-  attribution:'&copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community',
-  maxZoom:18,
-}).addTo(map);
-
-/* ---- 图例 ---- */
 const legendEl=document.getElementById('legend');
 const active=[true,true,true,true,true];
-const counts=[16,16,15,16,17];
 const markersByTrack=[[],[],[],[],[]];
-
 TRACKS.forEach((t,i)=>{
-  const el=document.createElement('button');
-  el.className='lg';el.type='button';
+  const el=document.createElement('button');el.className='lg';el.type='button';
   el.setAttribute('aria-pressed','true');
-  const shapeIcons={diamond:'◆',triangle:'▲',circle:'●',square:'■',star:'★'};
-  el.innerHTML=`<span class="sw" style="color:${t.color};background:transparent;font-size:14px;box-shadow:none">${shapeIcons[t.shape]}</span>${t.name}<span class="ct">${counts[i]}</span>`;
-  el.onclick=()=>{
-    active[i]=!active[i];
-    el.classList.toggle('off',!active[i]);
-    el.setAttribute('aria-pressed',active[i]);
-    markersByTrack[i].forEach(m=>{
-      if(active[i])m.addTo(map);else m.remove();
-    });
-    updateVisibleCount();
-  };
+  el.innerHTML=`<span class="sw" style="color:${t.color}">${shapeIcons[t.shape]}</span>${t.name}<span class="ct">${counts[i]}</span>`;
+  el.onclick=()=>{active[i]=!active[i];el.classList.toggle('off',!active[i]);el.setAttribute('aria-pressed',active[i]);markersByTrack[i].forEach(m=>active[i]?m.addTo(map):m.remove());updateVisibleCount();};
   legendEl.appendChild(el);
 });
-
 function updateVisibleCount(){
-  const visible=DEMO_NODES.filter(n=>active[n.track]).length;
-  document.getElementById('mapFoot').textContent=`示例数据 · 当前可见 ${visible}/${DEMO_NODES.length} 个节点　|　底图：ESRI World Imagery　|　正式版：替换为真实坐标`;
+  const v=DEMO_NODES.filter(n=>active[n.track]).length;
+  document.getElementById('mapFoot').textContent=`示例数据 · 可见${v}/${DEMO_NODES.length}节点 · ESRI World Imagery`;
 }
 
-/* ---- 节点标记 v2.1：双编码（颜色+形状）---- */
-// SVG 形状定义
-const shapeSVGs = {
-  diamond: (c,w,h)=>`<polygon points="${w/2},1 ${w-1},${h/2} ${w/2},${h-1} 1,${h/2}" fill="${c}" stroke="${c}" stroke-width="2" opacity="0.9"/>`,
-  triangle: (c,w,h)=>`<polygon points="${w/2},2 ${w-2},${h-2} 2,${h-2}" fill="${c}" stroke="${c}" stroke-width="2" opacity="0.9"/>`,
-  circle: (c,w,h)=>`<circle cx="${w/2}" cy="${h/2}" r="${w/2-2}" fill="${c}" stroke="${c}" stroke-width="2" opacity="0.9"/>`,
-  square: (c,w,h)=>`<rect x="2" y="2" width="${w-4}" height="${h-4}" rx="2" fill="${c}" stroke="${c}" stroke-width="2" opacity="0.9"/>`,
-  star: (c,w,h)=>`<polygon points="${w/2},2 ${w*.62},${h*.35} ${w-2},${h*.38} ${w*.68},${h*.58} ${w*.78},${h-2} ${w/2},${h*.72} ${w*.22},${h-2} ${w*.32},${h*.58} 2,${h*.38} ${w*.38},${h*.35}" fill="${c}" stroke="${c}" stroke-width="1.5" opacity="0.9"/>`,
-};
-
+const shapeSVGs={diamond:(c,w,h)=>`<polygon points="${w/2},1 ${w-1},${h/2} ${w/2},${h-1} 1,${h/2}" fill="${c}" stroke="${c}" stroke-width="2" opacity="0.9"/>`,triangle:(c,w,h)=>`<polygon points="${w/2},2 ${w-2},${h-2} 2,${h-2}" fill="${c}" stroke="${c}" stroke-width="2" opacity="0.9"/>`,circle:(c,w,h)=>`<circle cx="${w/2}" cy="${h/2}" r="${w/2-2}" fill="${c}" stroke="${c}" stroke-width="2" opacity="0.9"/>`,square:(c,w,h)=>`<rect x="2" y="2" width="${w-4}" height="${h-4}" rx="2" fill="${c}" stroke="${c}" stroke-width="2" opacity="0.9"/>`,star:(c,w,h)=>`<polygon points="${w/2},2 ${w*.62},${h*.35} ${w-2},${h*.38} ${w*.68},${h*.58} ${w*.78},${h-2} ${w/2},${h*.72} ${w*.22},${h-2} ${w*.32},${h*.58} 2,${h*.38} ${w*.38},${h*.35}" fill="${c}" stroke="${c}" stroke-width="1.5" opacity="0.9"/>`};
 DEMO_NODES.forEach(n=>{
-  const track=TRACKS[n.track];
-  const color=track.color;
-  const shape=track.shape;
-  const size=16+(n.score/100)*20; // 16-36px
-
-  const svgURL='data:image/svg+xml,'+encodeURIComponent(
-    `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 ${size} ${size}">`+
-    shapeSVGs[shape](color,size,size)+
-    '</svg>'
-  );
-
-  const icon=L.icon({
-    iconUrl:svgURL,
-    iconSize:[size,size],
-    iconAnchor:[size/2,size/2],
-    popupAnchor:[0,-size/2],
-  });
-
-  const marker=L.marker([n.lat,n.lng],{icon:icon}).addTo(map);
-
-  // 悬停放大
-  marker.on('mouseover',function(){
-    const s=size*1.5;
-    const svgURL2='data:image/svg+xml,'+encodeURIComponent(
-      `<svg xmlns="http://www.w3.org/2000/svg" width="${s}" height="${s}" viewBox="0 0 ${s} ${s}">`+
-      shapeSVGs[shape](color,s,s)+
-      '</svg>'
-    );
-    const icon2=L.icon({iconUrl:svgURL2,iconSize:[s,s],iconAnchor:[s/2,s/2],popupAnchor:[0,-s/2]});
-    this.setIcon(icon2);
-    this.setZIndexOffset(1000);
-  });
-  marker.on('mouseout',function(){
-    this.setIcon(icon);
-    this.setZIndexOffset(0);
-  });
-
-  marker.bindPopup(`
-    <div style="font-family:'Noto Sans SC',sans-serif;min-width:160px">
-      <div style="font-weight:700;font-size:14px;margin-bottom:4px">${n.name}</div>
-      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:${color}">${track.name}</div>
-      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#888;margin-top:4px">创新信号分 ${n.score}</div>
-    </div>
-  `,{closeButton:false});
-
+  const t=TRACKS[n.track],color=t.color,shape=t.shape,size=16+(n.score/100)*20;
+  const makeIcon=s=>{const svg='data:image/svg+xml,'+encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="${s}" height="${s}" viewBox="0 0 ${s} ${s}">`+shapeSVGs[shape](color,s,s)+'</svg>');return L.icon({iconUrl:svg,iconSize:[s,s],iconAnchor:[s/2,s/2],popupAnchor:[0,-s/2]});};
+  const icon=makeIcon(size),marker=L.marker([n.lat,n.lng],{icon}).addTo(map);
+  marker.on('mouseover',function(){this.setIcon(makeIcon(size*1.5));this.setZIndexOffset(1000);});
+  marker.on('mouseout',function(){this.setIcon(icon);this.setZIndexOffset(0);});
+  marker.bindPopup(`<div style="font-family:'Noto Sans SC',sans-serif;min-width:140px"><div style="font-weight:700;font-size:13px;margin-bottom:3px">${n.name}</div><div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:${color}">${t.name}</div><div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#888;margin-top:3px">信号分 ${n.score}</div></div>`,{closeButton:false});
   markersByTrack[n.track].push(marker);
-});
-
-/* ---- 信号矩阵 ---- */
-const SIGNALS=[
-  ['涉海营收方向（有/无）近3年变化',20,'直报系统 / 工商年报'],
-  ['涉海相关专利 / 软著数量',15,'企查查 / 天眼查'],
-  ['参与市级以上涉海科研项目',15,'科技局公示'],
-  ['产品 / 服务服务于政府 · 事业单位',12,'政府采购公告'],
-  ['涉海标准参编记录',10,'全国标准信息平台'],
-  ['创始团队海洋学科背景',10,'企查查 / 公开资料'],
-  ['近3年获涉海相关资质',8,'资质查询平台'],
-  ['海洋领域国家级 / 省级荣誉',5,'公开表彰公示'],
-  ['员工人数增长率',3,'工商年报'],
-  ['注册在国家级高新区 / 孵化器内',2,'注册地址'],
-];
-const sigWrap=document.getElementById('signals');
-SIGNALS.forEach((s,i)=>{
-  const row=document.createElement('div');
-  row.className='sig';
-  row.innerHTML=`
-    <div class="sig-row">
-      <div class="sg-no">${String(i+1).padStart(2,'0')}</div>
-      <div class="sg-name">${s[0]}</div>
-      <div class="sg-src">${s[2]}</div>
-      <div class="sg-w">${s[1]}%</div>
-    </div>
-    <div class="sg-bar"><div class="sg-fill" data-w="${s[1]}"></div></div>`;
-  sigWrap.appendChild(row);
 });
 
 /* ---- 导航高亮 ---- */
 const navLinks=document.querySelectorAll('.nav-links a');
 const sections=[];
-navLinks.forEach(a=>{
-  const id=a.getAttribute('href').slice(1);
-  const el=document.getElementById(id);
-  if(el)sections.push({el,link:a});
-});
-function updateNav(){
-  const scrollY=window.scrollY+120;
-  let current=null;
-  sections.forEach(({el,link})=>{if(el.offsetTop<=scrollY)current=link;});
-  navLinks.forEach(a=>a.classList.remove('active'));
-  if(current)current.classList.add('active');
-}
+navLinks.forEach(a=>{const id=a.getAttribute('href').slice(1);const el=document.getElementById(id);if(el)sections.push({el,link:a});});
+function updateNav(){const sy=window.scrollY+80;let cur=null;sections.forEach(({el,link})=>{if(el.offsetTop<=sy)cur=link;});navLinks.forEach(a=>a.classList.remove('active'));if(cur)cur.classList.add('active');}
 
-/* ---- 回到顶部 ---- */
 const backTop=document.getElementById('backTop');
-function updateBackTop(){backTop.classList.toggle('visible',window.scrollY>600);}
+function updateBackTop(){backTop.classList.toggle('visible',window.scrollY>500);}
 window.addEventListener('scroll',()=>{updateNav();updateBackTop();});
 updateNav();updateBackTop();
-
-/* ---- 信号条动画 ---- */
-const io=new IntersectionObserver(es=>{
-  es.forEach(e=>{if(e.isIntersecting){
-    document.querySelectorAll('.sg-fill').forEach(f=>{f.style.width=(f.dataset.w/20*100)+'%';});
-    io.disconnect();}});
-},{threshold:.2});
-io.observe(document.getElementById('signals'));
-
-// 地图尺寸修复
-setTimeout(()=>map.invalidateSize(),100);
+setTimeout(()=>map.invalidateSize(),200);
 window.addEventListener('resize',()=>map.invalidateSize());
 </script>
 </body>
